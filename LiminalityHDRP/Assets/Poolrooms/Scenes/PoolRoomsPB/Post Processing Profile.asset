@@ -276,7 +276,7 @@ MonoBehaviour:
     m_Value: 0
   compensation:
     m_OverrideState: 1
-    m_Value: 5.8
+    m_Value: 7.5
   limitMin:
     m_OverrideState: 0
     m_Value: -1
@@ -1242,7 +1242,7 @@ MonoBehaviour:
     m_Value: 0
   signalAdjustY:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: -0.002
   signalAdjustI:
     m_OverrideState: 0
     m_Value: 0

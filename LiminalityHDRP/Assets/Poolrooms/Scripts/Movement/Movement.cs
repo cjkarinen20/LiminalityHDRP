@@ -198,7 +198,7 @@ public class Movement : MonoBehaviour
         }
 
         //mode - walking
-        else if (grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)))
+        else if (grounded)
         {
             state = MovementState.walking;
             Debug.Log("Walking");

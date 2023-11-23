@@ -20,7 +20,12 @@ namespace CMF
         //All mouse input will be multiplied by this value;
         public float mouseInputMultiplier = 0.01f;
 
-	    public override float GetHorizontalCameraInput()
+        public void Start()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        public override float GetHorizontalCameraInput()
         {
             //Get raw mouse input;
             float _input = Input.GetAxisRaw(mouseHorizontalAxis);

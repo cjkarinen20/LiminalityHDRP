@@ -37,6 +37,7 @@ namespace CMF
 
 		//Audio clips;
 		public AudioClip[] footStepClips;
+		public AudioClip[] footStepClips_Water;
 		public AudioClip jumpClip;
 		public AudioClip landClip;
 
