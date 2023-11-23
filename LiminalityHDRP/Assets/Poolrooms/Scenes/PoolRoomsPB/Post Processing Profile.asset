@@ -24,10 +24,10 @@ MonoBehaviour:
     m_Value: 1
   windOrientation:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 208
   windSpeed:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 5.2
   fogType:
     m_OverrideState: 0
     m_Value: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.02
+    m_Value: 0.25
   xMultiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -85,8 +85,8 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {x: 0.5, y: 0.5}
   scale:
-    m_OverrideState: 1
-    m_Value: 0.95
+    m_OverrideState: 0
+    m_Value: 0.46
 --- !u!114 &-7261738214929590455
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -276,7 +276,7 @@ MonoBehaviour:
     m_Value: 0
   compensation:
     m_OverrideState: 1
-    m_Value: 7.5
+    m_Value: 6.8
   limitMin:
     m_OverrideState: 0
     m_Value: -1
@@ -468,7 +468,7 @@ MonoBehaviour:
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 12.07
+    m_Value: 10
   multiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -514,7 +514,7 @@ MonoBehaviour:
     m_Value:
       mode: 2
       customValue: 100
-      additiveValue: 500
+      additiveValue: 549
       multiplyValue: 1
   enableBackplate:
     m_OverrideState: 0
@@ -1691,7 +1691,7 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.6691644, y: 0.8939772, z: 1, w: -0.5244124}
+    m_Value: {x: 0.5023799, y: 0.8284946, z: 1, w: -0.5244124}
   midtones:
     m_OverrideState: 0
     m_Value: {x: 1, y: 0.6942417, z: 0.6186863, w: 0}

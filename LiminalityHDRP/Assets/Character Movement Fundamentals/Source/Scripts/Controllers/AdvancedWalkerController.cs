@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CMF
 {
@@ -21,8 +22,15 @@ namespace CMF
 		bool jumpKeyWasLetGo = false;
 		bool jumpKeyIsPressed = false;
 
-		//Movement speed;
-		public float movementSpeed = 7f;
+        [Header("Sprinting")]
+        public float sprintSpeed;
+        public float stamina;
+        public float cooldown;
+        float maxStamina;
+        public Slider staminaSlider;
+
+        //Movement speed;
+        public float movementSpeed = 7f;
 
 		//How fast the controller can change direction while in the air;
 		//Higher values result in more air control;
@@ -64,6 +72,8 @@ namespace CMF
 		public enum ControllerState
 		{
 			Grounded,
+			inWater,
+			Sprinting,
 			Sliding,
 			Falling,
 			Rising,
@@ -250,6 +260,16 @@ namespace CMF
 				}
 				return ControllerState.Grounded;
 			}
+			//in Water
+			if(currentControllerState == ControllerState.inWater)
+			{
+
+			}
+			//Sprinting
+			if(currentControllerState == ControllerState.Sprinting)
+			{
+
+			}
 
 			//Falling;
 			if(currentControllerState == ControllerState.Falling)
@@ -354,9 +374,22 @@ namespace CMF
                 }
             }
         }
+		void handleSprinting()
+		{
+
+		}
+        private void decreaseStamina()
+        {
+            if (stamina != 0)
+                stamina -= cooldown * Time.deltaTime;
+        }
+        private void increaseStamina()
+        {
+            stamina += cooldown * Time.deltaTime;
+        }
 
         //Apply friction to both vertical and horizontal momentum based on 'friction' and 'gravity';
-		//Handle movement in the air;
+        //Handle movement in the air;
         //Handle sliding down steep slopes;
         void HandleMomentum()
 		{
