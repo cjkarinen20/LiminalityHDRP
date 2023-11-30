@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class flashlight : MonoBehaviour
 {
+    public AudioSource AudioSource;
+
+    public AudioClip flashlightClick;
+
     private Vector3 vectorOffset;
     private GameObject followTarget;
     public Light light;
@@ -28,10 +32,12 @@ public class flashlight : MonoBehaviour
         {
             if (light.enabled)
             {
+                AudioSource.PlayOneShot(flashlightClick);
                 light.enabled = false;
             }
             else if (!light.enabled)
             {
+                AudioSource.PlayOneShot(flashlightClick);
                 light.enabled = true;
             }
 
