@@ -14,6 +14,7 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private bool sprintEnabled = true;
     [SerializeField] private bool jumpEnabled = true;
     [SerializeField] private bool crouchEnabled = true;
+    [SerializeField] private bool headBobEnabled = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
@@ -45,7 +46,15 @@ public class NewFPSController : MonoBehaviour
     private bool isCrouching;
     private bool ongoingCrouchAnimation;
 
-
+    [Header("Headbob Parameters")]
+    [SerializeField] private float walkbobSpeed = 14f;
+    [SerializeField] private float walkbobAmount = 0.5f;
+    [SerializeField] private float sprintbobSpeed = 18f;
+    [SerializeField] private float sprintbobAmount = 0.11f;
+    [SerializeField] private float crouchbobSpeed = 8f;
+    [SerializeField] private float crouchbobAmount = 0.025f;
+    private float defaultYPos = 0;
+    private float Timer;
 
     private Camera playerCamera;
     private CharacterController characterController;
@@ -61,6 +70,7 @@ public class NewFPSController : MonoBehaviour
     {
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponentInChildren<CharacterController>();
+        defaultYPos = playerCamera.transform.localPosition.y;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -78,6 +88,8 @@ public class NewFPSController : MonoBehaviour
                 HandleJump();
             if(crouchEnabled)
                 HandleCrouch();
+            if (headBobEnabled)
+                HandleHeadBob();
 
             ApplyFinalMovement();
         }
@@ -105,6 +117,20 @@ public class NewFPSController : MonoBehaviour
     {
         if (shouldCrouch)
             StartCoroutine(CrouchStand());
+    }
+    private void HandleHeadBob()
+    {
+        if (!characterController.isGrounded) return;
+
+        if (Mathf.Abs(moveDirection.x) > 0.1f || Mathf.Abs(moveDirection.z) > 0.1f)
+        {
+            Timer += Time.deltaTime + (isCrouching ? crouchbobSpeed : isSprinting ? sprintbobSpeed : walkbobSpeed);
+            playerCamera.transform.localPosition = new Vector3(
+                playerCamera.transform.localPosition.x,
+                defaultYPos + Mathf.Sin(Timer) * (isCrouching ? crouchbobAmount : isSprinting ? sprintbobAmount : walkbobAmount),
+                playerCamera.transform.localPosition.z);
+        }
+
     }
     private void ApplyFinalMovement()
     {
