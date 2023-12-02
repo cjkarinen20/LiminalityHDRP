@@ -7,17 +7,20 @@ public class NewFPSController : MonoBehaviour
 {
     public bool canMove { get; private set; } = true;
     private bool isSprinting => canSprint && Input.GetKey(sprintKey) && Input.GetKey(KeyCode.W);
+    private bool shouldJump => Input.GetKeyDown(jumptKey) && characterController.isGrounded;
 
     [Header("Functional Options")]
     [SerializeField] private bool canSprint = true;
+    [SerializeField] private bool canJump = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode jumptKey = KeyCode.Space;
 
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 3.0f;
     [SerializeField] private float sprintSpeed = 6.0f;
-    [SerializeField] private float gravity = 30.0f;
+
 
     [Header("Look Parameters")]
     [SerializeField, Range(1, 10)] private float lookSpeedX = 2.0f;
@@ -25,6 +28,9 @@ public class NewFPSController : MonoBehaviour
     [SerializeField, Range(1, 100)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1, 100)] private float lowerLookLimit = 80.0f;
 
+    [Header("Look Parameters")]
+    [SerializeField] private float jumpForce = 8.0f;
+    [SerializeField] private float gravity = 30.0f;
 
 
     private Camera playerCamera;
@@ -53,6 +59,10 @@ public class NewFPSController : MonoBehaviour
         {
             HandleMovementInput();
             HandleMouseLook();
+
+            if(canJump)
+                HandleJump();
+
             ApplyFinalMovement();
         }
     }
@@ -69,6 +79,11 @@ public class NewFPSController : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeedX, 0);
+    }
+    private void HandleJump()
+    {
+        if (shouldJump)
+            moveDirection.y = jumpForce;
     }
     private void ApplyFinalMovement()
     {
