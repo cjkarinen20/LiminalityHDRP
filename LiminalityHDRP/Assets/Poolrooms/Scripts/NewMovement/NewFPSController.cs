@@ -16,11 +16,13 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private bool crouchEnabled = true;
     [SerializeField] private bool headBobEnabled = true;
     [SerializeField] private bool slopeSlidingEnabled = true;
+    [SerializeField] private bool zoomEnabled = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] private KeyCode jumptKey = KeyCode.Space;
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
+    [SerializeField] private KeyCode zoomKey = KeyCode.Mouse1;
 
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 3.0f;
@@ -58,6 +60,11 @@ public class NewFPSController : MonoBehaviour
     private float defaultYPos = 0;
     private float Timer;
 
+    [Header("Zoom Parameters")]
+    [SerializeField] private float timeToZoom = 0.3f;
+    [SerializeField] private float zoomFOV = 40f;
+    private float defaultFOV;
+    private Coroutine zoomRoutine;
     // SLIDING PARAMETERS
     private Vector3 hitPointNormal;
 
@@ -92,6 +99,7 @@ public class NewFPSController : MonoBehaviour
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponentInChildren<CharacterController>();
         defaultYPos = playerCamera.transform.localPosition.y;
+        defaultFOV = playerCamera.fieldOfView;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -111,6 +119,8 @@ public class NewFPSController : MonoBehaviour
                 HandleCrouch();
             if (headBobEnabled)
                 HandleHeadBob();
+            if (zoomEnabled)
+                HandleZoom();
 
             ApplyFinalMovement();
         }
@@ -153,6 +163,29 @@ public class NewFPSController : MonoBehaviour
         }
 
     }
+    private void HandleZoom()
+    {
+        if (Input.GetKeyDown(zoomKey))
+        {
+            if (zoomRoutine != null)
+            {
+                StopCoroutine(zoomRoutine);
+                zoomRoutine = null;
+            }
+            zoomRoutine = StartCoroutine(ToggleZoom(true));
+
+        }
+        if (Input.GetKeyUp(zoomKey))
+        {
+            if (zoomRoutine != null)
+            {
+                StopCoroutine(zoomRoutine);
+                zoomRoutine = null;
+            }
+            zoomRoutine = StartCoroutine(ToggleZoom(false));
+
+        }
+    }
     private void ApplyFinalMovement()
     {
         if (!characterController.isGrounded)
@@ -192,5 +225,21 @@ public class NewFPSController : MonoBehaviour
         characterController.center = targetCenter;
 
         ongoingCrouchAnimation = false;
+    }
+    private IEnumerator ToggleZoom(bool enterZoom)
+    {
+        float targetFOV = enterZoom ? zoomFOV : defaultFOV;
+        float startingFOV = playerCamera.fieldOfView;
+        float timeElapsed = 0;
+
+        while (timeElapsed < timeToZoom)
+        {
+            playerCamera.fieldOfView = Mathf.Lerp(startingFOV, targetFOV, timeElapsed / timeToZoom);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        playerCamera.fieldOfView = targetFOV;
+        zoomRoutine = null;
     }
 }

@@ -4420,10 +4420,12 @@ MonoBehaviour:
   crouchEnabled: 1
   headBobEnabled: 1
   slopeSlidingEnabled: 1
+  zoomEnabled: 1
   sprintKey: 304
   jumptKey: 32
   crouchKey: 306
-  walkSpeed: 6
+  zoomKey: 324
+  walkSpeed: 4.5
   sprintSpeed: 6
   crouchSpeed: 1.5
   slopeSpeed: 8
@@ -4444,6 +4446,8 @@ MonoBehaviour:
   sprintbobAmount: 0.11
   crouchbobSpeed: 0.055
   crouchbobAmount: 0.025
+  timeToZoom: 0.3
+  zoomFOV: 30
 --- !u!143 &291189665
 CharacterController:
   m_ObjectHideFlags: 0
