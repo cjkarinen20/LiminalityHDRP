@@ -9,7 +9,9 @@ TagManager:
   - PostProcess
   - RippleSystem
   - RippleCamera
-  - Ground
+  - Tile
+  - Grass
+  - Dirt
   layers:
   - Default
   - TransparentFX

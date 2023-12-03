@@ -17,6 +17,8 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private bool headBobEnabled = true;
     [SerializeField] private bool slopeSlidingEnabled = true;
     [SerializeField] private bool zoomEnabled = true;
+    //add interactionEnabled field here later
+    [SerializeField] private bool footstepsEnabled = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
@@ -65,6 +67,20 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private float zoomFOV = 40f;
     private float defaultFOV;
     private Coroutine zoomRoutine;
+
+    [Header("Footstep Parameters")]
+    [SerializeField] private float baseStepSpeed = 0.5f;
+    [SerializeField] private float crouchStepMultiplier = 1.5f;
+    [SerializeField] private float sprintStepMultiplier = 0.6f;
+    [SerializeField] private AudioSource footstepAudioSource = default;
+    [SerializeField] private AudioClip[] grassSounds = default;
+    [SerializeField] private AudioClip[] dirtSounds = default;
+    [SerializeField] private AudioClip[] tileSounds = default;
+    [SerializeField] private AudioClip[] waterSounds = default;
+    private float footstepTimer = 0;
+    private float GetCurrentOffset => isCrouching ? baseStepSpeed * crouchStepMultiplier : isSprinting ? baseStepSpeed = sprintStepMultiplier : baseStepSpeed;
+
+
     // SLIDING PARAMETERS
     private Vector3 hitPointNormal;
 
@@ -121,6 +137,10 @@ public class NewFPSController : MonoBehaviour
                 HandleHeadBob();
             if (zoomEnabled)
                 HandleZoom();
+            if (footstepsEnabled)
+                HandleFootsteps();
+
+            //add if statement for interaction
 
             ApplyFinalMovement();
         }
@@ -197,6 +217,39 @@ public class NewFPSController : MonoBehaviour
 
             characterController.Move(moveDirection * Time.deltaTime);
     }
+    private void HandleFootsteps()
+    {
+        if (!characterController.isGrounded) return;
+        if (currentInput == Vector2.zero) return;
+
+        footstepTimer -= Time.deltaTime;
+
+        if (footstepTimer <= 0)
+        {
+            if (Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, 3))
+            {
+                switch(hit.collider.tag)
+                {
+                    case "Grass":
+                        footstepAudioSource.PlayOneShot(grassSounds[Random.Range(0, grassSounds.Length - 1)]);
+                        break;
+                    case "Dirt":
+                        footstepAudioSource.PlayOneShot(dirtSounds[Random.Range(0, dirtSounds.Length - 1)]);
+                        break;
+                    case "Tile":
+                        footstepAudioSource.PlayOneShot(tileSounds[Random.Range(0, tileSounds.Length - 1)]);
+                        break;
+                    case "Water":
+                        footstepAudioSource.PlayOneShot(waterSounds[Random.Range(0, waterSounds.Length - 1)]);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            footstepTimer = GetCurrentOffset;
+        }
+    }
+
     private IEnumerator CrouchStand()
     {
         if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
