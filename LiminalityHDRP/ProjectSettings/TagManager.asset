@@ -12,6 +12,7 @@ TagManager:
   - Tile
   - Grass
   - Dirt
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - Player
   - 
-  - 
+  - Interactable
   - 
   - 
   - 

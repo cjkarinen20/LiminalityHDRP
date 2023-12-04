@@ -17,7 +17,7 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private bool headBobEnabled = true;
     [SerializeField] private bool slopeSlidingEnabled = true;
     [SerializeField] private bool zoomEnabled = true;
-    //add interactionEnabled field here later
+    [SerializeField] private bool interactionEnabled = true;
     [SerializeField] private bool footstepsEnabled = true;
 
     [Header("Controls")]
@@ -25,6 +25,7 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private KeyCode jumptKey = KeyCode.Space;
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
     [SerializeField] private KeyCode zoomKey = KeyCode.Mouse1;
+    [SerializeField] private KeyCode interactKey = KeyCode.Mouse0;
 
     [Header("Movement Parameters")]
     [SerializeField] private float walkSpeed = 3.0f;
@@ -99,6 +100,11 @@ public class NewFPSController : MonoBehaviour
             }
         }
     }
+    [Header("Interaction Parameters")]
+    [SerializeField] private Vector3 interactionRayPoint = default;
+    [SerializeField] private float interactionDistance = default;
+    [SerializeField] private LayerMask interactionLayer = default;
+    private Interactable currentInteractable;
 
     private Camera playerCamera;
     private CharacterController characterController;
@@ -139,8 +145,14 @@ public class NewFPSController : MonoBehaviour
                 HandleZoom();
             if (footstepsEnabled)
                 HandleFootsteps();
+            if (interactionEnabled)
+            {
+                HandleInteractionCheck();
+                HandleInteractionInput();
 
-            //add if statement for interaction
+            }
+
+
 
             ApplyFinalMovement();
         }
@@ -249,7 +261,32 @@ public class NewFPSController : MonoBehaviour
             footstepTimer = GetCurrentOffset;
         }
     }
+    private void HandleInteractionCheck()
+    {
+        if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance))
+        {
+            if (hit.collider.gameObject.layer == 8 && (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.GetInstanceID()))
+            {
+                hit.collider.TryGetComponent(out currentInteractable);
 
+                if (currentInteractable)
+                    currentInteractable.OnFocus();
+            }
+        }
+        else if (currentInteractable)
+        {
+            currentInteractable.OnLoseFocus();
+            currentInteractable = null;
+        }
+    }
+    private void HandleInteractionInput()
+    {
+        if (Input.GetKeyDown(interactKey) && currentInteractable != null && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance, interactionLayer))
+        {
+            currentInteractable.OnInteract();
+        }
+
+    }
     private IEnumerator CrouchStand()
     {
         if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
