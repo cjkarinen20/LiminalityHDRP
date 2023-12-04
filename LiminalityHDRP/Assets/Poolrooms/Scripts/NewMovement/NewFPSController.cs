@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -39,6 +40,18 @@ public class NewFPSController : MonoBehaviour
     [SerializeField, Range(1, 10)] private float lookSpeedY = 2.0f;
     [SerializeField, Range(1, 100)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1, 100)] private float lowerLookLimit = 80.0f;
+
+    [Header("Health Parameters")]
+    [SerializeField] private float maxHealth = 100;
+    [SerializeField] private float regenCooldown = 3;
+    [SerializeField] private float healthIncreaseIncrement = 1;
+    [SerializeField] private float healthTimeIncrement = 0.1f;
+    private float currentHealth;
+    private Coroutine regeneratingHealth;
+    public static Action<float> OnTakeDamage;
+    public static Action<float> OnDamage;
+    public static Action<float> OnHeal;
+
 
     [Header("Look Parameters")]
     [SerializeField] private float jumpForce = 8.0f;
@@ -114,6 +127,14 @@ public class NewFPSController : MonoBehaviour
 
     private float rotationX = 0;
 
+    private void OnEnable()
+    {
+        OnTakeDamage += ApplyDamage;
+    }
+    private void OnDisable()
+    {
+        OnTakeDamage -= ApplyDamage;
+    }
 
 
     void Awake()
@@ -122,6 +143,7 @@ public class NewFPSController : MonoBehaviour
         characterController = GetComponentInChildren<CharacterController>();
         defaultYPos = playerCamera.transform.localPosition.y;
         defaultFOV = playerCamera.fieldOfView;
+        currentHealth = maxHealth;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -151,7 +173,7 @@ public class NewFPSController : MonoBehaviour
                 HandleInteractionInput();
 
             }
-
+            print("Health: " + currentHealth);
 
 
             ApplyFinalMovement();
@@ -243,16 +265,16 @@ public class NewFPSController : MonoBehaviour
                 switch(hit.collider.tag)
                 {
                     case "Grass":
-                        footstepAudioSource.PlayOneShot(grassSounds[Random.Range(0, grassSounds.Length - 1)]);
+                        footstepAudioSource.PlayOneShot(grassSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         break;
                     case "Dirt":
-                        footstepAudioSource.PlayOneShot(dirtSounds[Random.Range(0, dirtSounds.Length - 1)]);
+                        footstepAudioSource.PlayOneShot(dirtSounds[UnityEngine.Random.Range(0, dirtSounds.Length - 1)]);
                         break;
                     case "Tile":
-                        footstepAudioSource.PlayOneShot(tileSounds[Random.Range(0, tileSounds.Length - 1)]);
+                        footstepAudioSource.PlayOneShot(tileSounds[UnityEngine.Random.Range(0, tileSounds.Length - 1)]);
                         break;
                     case "Water":
-                        footstepAudioSource.PlayOneShot(waterSounds[Random.Range(0, waterSounds.Length - 1)]);
+                        footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);
                         break;
                     default:
                         break;
@@ -260,6 +282,31 @@ public class NewFPSController : MonoBehaviour
             }
             footstepTimer = GetCurrentOffset;
         }
+    }
+
+    private void ApplyDamage(float damage)
+    {
+        currentHealth -= damage;
+        OnDamage?.Invoke(currentHealth);
+
+        if (currentHealth <= 0)
+            KillPlayer();
+        else if (regeneratingHealth != null)
+            StopCoroutine(regeneratingHealth);
+
+        regeneratingHealth = StartCoroutine(RegenerateHealth());
+    }
+    private void KillPlayer()
+    {
+        currentHealth = 0;
+
+        if (regeneratingHealth != null)
+            StopCoroutine(regeneratingHealth);
+
+        print("DEAD");
+
+        //Add further implementation later
+        //Make a "fade to black" animation play here and restart the scene
     }
     private void HandleInteractionCheck()
     {
@@ -331,5 +378,23 @@ public class NewFPSController : MonoBehaviour
 
         playerCamera.fieldOfView = targetFOV;
         zoomRoutine = null;
+    }
+    private IEnumerator RegenerateHealth()
+    {
+        yield return new WaitForSeconds(regenCooldown);
+        WaitForSeconds timeToWait = new WaitForSeconds(healthTimeIncrement);
+
+        while(currentHealth < maxHealth)
+        {
+            currentHealth += healthIncreaseIncrement;
+
+            if (currentHealth > maxHealth)
+                currentHealth = maxHealth;
+
+            OnHeal?.Invoke(currentHealth);
+            yield return timeToWait;
+        }
+
+        regeneratingHealth = null;
     }
 }
