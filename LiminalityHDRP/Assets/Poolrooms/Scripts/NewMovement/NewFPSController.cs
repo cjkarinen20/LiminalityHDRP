@@ -20,6 +20,7 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private bool zoomEnabled = true;
     [SerializeField] private bool interactionEnabled = true;
     [SerializeField] private bool footstepsEnabled = true;
+    [SerializeField] private bool staminaEnabled = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
@@ -52,6 +53,15 @@ public class NewFPSController : MonoBehaviour
     public static Action<float> OnDamage;
     public static Action<float> OnHeal;
 
+    [Header("Stamina Parameters")]
+    [SerializeField] private float maxStamina = 100;
+    [SerializeField] private float staminaUseMultiplier = 5;
+    [SerializeField] private float timeBeforeStaminaRegenStarts = 5;
+    [SerializeField] private float staminaIncreaseIncrement = 2;
+    [SerializeField] private float staminaTimeIncrement = 0.1f;
+    private float currentStamina;
+    private Coroutine regeneratingStamina;
+    public static Action<float> OnStaminaChange;
 
     [Header("Look Parameters")]
     [SerializeField] private float jumpForce = 8.0f;
@@ -144,6 +154,7 @@ public class NewFPSController : MonoBehaviour
         defaultYPos = playerCamera.transform.localPosition.y;
         defaultFOV = playerCamera.fieldOfView;
         currentHealth = maxHealth;
+        currentStamina = maxStamina;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -173,8 +184,12 @@ public class NewFPSController : MonoBehaviour
                 HandleInteractionInput();
 
             }
-            print("Health: " + currentHealth);
+            if (staminaEnabled)
+                HandleStamina();
 
+
+            print("Health: " + currentHealth);
+            print("Stamina: " + currentStamina);
 
             ApplyFinalMovement();
         }
@@ -217,6 +232,31 @@ public class NewFPSController : MonoBehaviour
         }
 
     }
+    private void HandleStamina()
+    {
+        if (isSprinting && currentInput != Vector2.zero)
+        {
+            if (regeneratingStamina != null)
+            {
+                StopCoroutine(regeneratingStamina);
+                regeneratingStamina = null;
+            }
+            currentStamina -= staminaUseMultiplier * Time.deltaTime;
+
+            if (currentStamina < 0)
+                currentStamina = 0;
+
+            OnStaminaChange?.Invoke(currentStamina);
+
+            if (currentStamina <= 0)
+                sprintEnabled = false;
+        }
+        if (!isSprinting && currentStamina < maxStamina && regeneratingStamina == null)
+        {
+            regeneratingStamina = StartCoroutine(RegenerateStamina());
+        }
+    }
+
     private void HandleZoom()
     {
         if (Input.GetKeyDown(zoomKey))
@@ -396,5 +436,23 @@ public class NewFPSController : MonoBehaviour
         }
 
         regeneratingHealth = null;
+    }
+    private IEnumerator RegenerateStamina()
+    {
+        yield return new WaitForSeconds(timeBeforeStaminaRegenStarts);
+        WaitForSeconds timeToWait = new WaitForSeconds(staminaTimeIncrement);
+
+        while(currentStamina < maxStamina)
+        {
+            if (currentStamina > 0)
+                sprintEnabled = true;
+            currentStamina += staminaIncreaseIncrement;
+
+            if (currentStamina > maxStamina)
+                currentStamina = maxStamina;
+
+            yield return timeToWait;
+        }
+        regeneratingStamina = null;
     }
 }
