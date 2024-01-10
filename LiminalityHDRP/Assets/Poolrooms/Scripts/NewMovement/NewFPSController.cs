@@ -30,7 +30,7 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private KeyCode interactKey = KeyCode.Mouse0;
 
     [Header("Movement Parameters")]
-    [SerializeField] public float walkSpeed = 3.0f;
+    [SerializeField] public float walkSpeed = 4.0f;
     [SerializeField] private float sprintSpeed = 6.0f;
     [SerializeField] private float crouchSpeed = 1.5f;
     [SerializeField] private float slopeSpeed = 8f; 
