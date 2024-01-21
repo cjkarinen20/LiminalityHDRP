@@ -101,6 +101,11 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private AudioClip[] dirtSounds = default;
     [SerializeField] private AudioClip[] tileSounds = default;
     [SerializeField] private AudioClip[] waterSounds = default;
+    [SerializeField] private AudioClip[] waterRunSounds = default;
+    [SerializeField] private AudioClip[] grassRunSounds = default;
+    [SerializeField] private AudioClip[] tileRunSounds = default;
+    [SerializeField] private AudioClip[] dirtRunSounds = default;
+
     private float footstepTimer = 0;
     private float GetCurrentOffset => isCrouching ? baseStepSpeed * crouchStepMultiplier : isSprinting ? baseStepSpeed = sprintStepMultiplier : baseStepSpeed;
 
@@ -305,15 +310,23 @@ public class NewFPSController : MonoBehaviour
                 switch(hit.collider.tag)
                 {
                     case "Grass":
+                        if (isSprinting)
+                            footstepAudioSource.PlayOneShot(grassRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         footstepAudioSource.PlayOneShot(grassSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         break;
                     case "Dirt":
+                        if (isSprinting)
+                            footstepAudioSource.PlayOneShot(dirtRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         footstepAudioSource.PlayOneShot(dirtSounds[UnityEngine.Random.Range(0, dirtSounds.Length - 1)]);
                         break;
                     case "Tile":
+                        if (isSprinting)
+                            footstepAudioSource.PlayOneShot(tileRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         footstepAudioSource.PlayOneShot(tileSounds[UnityEngine.Random.Range(0, tileSounds.Length - 1)]);
                         break;
                     case "Water":
+                        if (isSprinting)
+                            footstepAudioSource.PlayOneShot(waterRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);
                         break;
                     default:
