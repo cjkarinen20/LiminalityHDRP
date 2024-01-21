@@ -142,6 +142,8 @@ public class NewFPSController : MonoBehaviour
 
     private float rotationX = 0;
 
+    public static NewFPSController instance;
+
     private void OnEnable()
     {
         OnTakeDamage += ApplyDamage;
@@ -154,6 +156,8 @@ public class NewFPSController : MonoBehaviour
 
     void Awake()
     {
+        instance = this;
+
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponentInChildren<CharacterController>();
         defaultYPos = playerCamera.transform.localPosition.y;
