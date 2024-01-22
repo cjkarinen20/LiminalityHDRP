@@ -30,8 +30,8 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private KeyCode interactKey = KeyCode.Mouse0;
 
     [Header("Movement Parameters")]
-    [SerializeField] public float walkSpeed = 4.0f;
-    [SerializeField] private float sprintSpeed = 6.0f;
+    [SerializeField] public float walkSpeed = 4.5f;
+    [SerializeField] private float sprintSpeed = 6.2f;
     [SerializeField] private float crouchSpeed = 1.5f;
     [SerializeField] private float slopeSpeed = 8f; 
 
@@ -93,7 +93,7 @@ public class NewFPSController : MonoBehaviour
     private Coroutine zoomRoutine;
 
     [Header("Footstep Parameters")]
-    [SerializeField] private float baseStepSpeed = 0.5f;
+    [SerializeField] private float baseStepSpeed = 0.7f;
     [SerializeField] private float crouchStepMultiplier = 1.5f;
     [SerializeField] private float sprintStepMultiplier = 0.3f;
     [SerializeField] private AudioSource footstepAudioSource = default;
@@ -314,7 +314,6 @@ public class NewFPSController : MonoBehaviour
                             footstepAudioSource.PlayOneShot(grassRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         else
                         {
-                            footstepTimer = baseStepSpeed;
                             footstepAudioSource.PlayOneShot(grassSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         }
                         break;
@@ -323,7 +322,6 @@ public class NewFPSController : MonoBehaviour
                             footstepAudioSource.PlayOneShot(dirtRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         else
                         {
-                            footstepTimer = baseStepSpeed;
                             footstepAudioSource.PlayOneShot(dirtSounds[UnityEngine.Random.Range(0, dirtSounds.Length - 1)]);
                         }
                         break;
@@ -332,7 +330,6 @@ public class NewFPSController : MonoBehaviour
                             footstepAudioSource.PlayOneShot(tileRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         else
                         {
-                            footstepTimer = baseStepSpeed;
                             footstepAudioSource.PlayOneShot(tileSounds[UnityEngine.Random.Range(0, tileSounds.Length - 1)]);
                         }
                         break;
@@ -341,15 +338,14 @@ public class NewFPSController : MonoBehaviour
                             footstepAudioSource.PlayOneShot(waterRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
                         else
                         {
-                            footstepTimer = baseStepSpeed;
                             footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);
                         }              
                         break;
                     default:
+                        footstepTimer = baseStepSpeed;
                         break;
                 }
             }
-            baseStepSpeed = 0.5f;
             footstepTimer = baseStepSpeed;
         }
     }
