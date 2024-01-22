@@ -98,13 +98,15 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private float sprintStepMultiplier = 0.6f;
     [SerializeField] private AudioSource footstepAudioSource = default;
     [SerializeField] private AudioClip[] grassSounds = default;
+    [SerializeField] private AudioClip[] grassRunSounds = default;
     [SerializeField] private AudioClip[] dirtSounds = default;
+    [SerializeField] private AudioClip[] dirtRunSounds = default;
     [SerializeField] private AudioClip[] tileSounds = default;
+    [SerializeField] private AudioClip[] tileRunSounds = default;
     [SerializeField] private AudioClip[] waterSounds = default;
     [SerializeField] private AudioClip[] waterRunSounds = default;
-    [SerializeField] private AudioClip[] grassRunSounds = default;
-    [SerializeField] private AudioClip[] tileRunSounds = default;
-    [SerializeField] private AudioClip[] dirtRunSounds = default;
+
+
 
     private float footstepTimer = 0;
     private float GetCurrentOffset => isCrouching ? baseStepSpeed * crouchStepMultiplier : isSprinting ? baseStepSpeed = sprintStepMultiplier : baseStepSpeed;
@@ -197,15 +199,16 @@ public class NewFPSController : MonoBehaviour
                 HandleStamina();
 
 
-            print("Health: " + currentHealth);
-            print("Stamina: " + currentStamina);
+            //Debug.Log("Health: " + currentHealth);
+            //Debug.Log("Stamina: " + currentStamina);
 
             ApplyFinalMovement();
         }
     }
     private void HandleMovementInput()
     {
-        currentInput = new Vector2(isSprinting ? sprintSpeed : walkSpeed = Input.GetAxis("Vertical"), walkSpeed = Input.GetAxis("Horizontal"));
+        currentInput = new Vector2((isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"), (isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Horizontal"));
+
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
         moveDirection.y = moveDirectionY;
@@ -337,7 +340,7 @@ public class NewFPSController : MonoBehaviour
                         break;
                 }
             }
-            footstepTimer = GetCurrentOffset;
+            footstepTimer = baseStepSpeed;
         }
     }
 
@@ -360,7 +363,7 @@ public class NewFPSController : MonoBehaviour
         if (regeneratingHealth != null)
             StopCoroutine(regeneratingHealth);
 
-        print("DEAD");
+        Debug.Log("DEAD");
 
         //Add further implementation later
         //Make a "fade to black" animation play here and restart the scene
