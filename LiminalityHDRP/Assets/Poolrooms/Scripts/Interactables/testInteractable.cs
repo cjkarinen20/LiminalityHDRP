@@ -6,16 +6,16 @@ public class testInteractable : Interactable
 {
     public override void OnInteract()
     {
-        print("INTERACTED WITH " + gameObject.name);
+        Debug.Log("INTERACTED WITH " + gameObject.name);
     }
     public override void OnFocus()
     {
         
-        print("LOOKING AT " + gameObject.name);
+        Debug.Log("LOOKING AT " + gameObject.name);
     }
     public override void OnLoseFocus()
     {
-        print("STOPPED LOOKING AT " + gameObject.name);
+        Debug.Log("STOPPED LOOKING AT " + gameObject.name);
     }
 
 }
