@@ -241,6 +241,11 @@ public class NewFPSController : MonoBehaviour
                 playerCamera.transform.localPosition.x,
                 defaultYPos + Mathf.Sin(Timer) * (isCrouching ? crouchbobAmount : isSprinting ? sprintbobAmount : walkbobAmount),
                 playerCamera.transform.localPosition.z);
+
+            playerCamera.transform.localPosition = new Vector3(
+    playerCamera.transform.localPosition.x,
+    defaultYPos + Mathf.Sin(Timer) * (isCrouching ? crouchbobAmount : isSprinting ? sprintbobAmount : walkbobAmount),
+    playerCamera.transform.localPosition.z);
         }
 
     }

@@ -50,7 +50,7 @@ public class Door : Interactable
             if(Vector3.Distance(transform.position, NewFPSController.instance.transform.position) > 3)
             {
                 isOpen = false;
-                animator.SetFloat("dot", 0);
+                animator.SetFloat("Dot", 0);
                 animator.SetBool("isOpen", isOpen);
             }
         }
