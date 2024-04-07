@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8485776346818503166
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7593b3a9277ac4696b20006c21dde2, type: 3}
-  m_Name: VisualEnvironment
-  m_EditorClassIdentifier: 
-  active: 1
-  skyType:
-    m_OverrideState: 1
-    m_Value: 1
-  cloudType:
-    m_OverrideState: 1
-    m_Value: 1
-  skyAmbientMode:
-    m_OverrideState: 1
-    m_Value: 1
-  windOrientation:
-    m_OverrideState: 1
-    m_Value: 208
-  windSpeed:
-    m_OverrideState: 1
-    m_Value: 5.2
-  fogType:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!114 &-8207904721791331438
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -276,7 +245,7 @@ MonoBehaviour:
     m_Value: 0
   compensation:
     m_OverrideState: 1
-    m_Value: 7
+    m_Value: 8.5
   limitMin:
     m_OverrideState: 0
     m_Value: -1
@@ -474,10 +443,10 @@ MonoBehaviour:
     m_Value: 1
   upperHemisphereLuxValue:
     m_OverrideState: 1
-    m_Value: 3.5367877
+    m_Value: 0.18292065
   upperHemisphereLuxColor:
     m_OverrideState: 1
-    m_Value: {x: 0.4967907, y: 0.5, z: 0.4971366}
+    m_Value: {x: 0.5, y: 0.4955067, z: 0.47593158}
   desiredLuxValue:
     m_OverrideState: 0
     m_Value: 20000
@@ -492,7 +461,7 @@ MonoBehaviour:
     m_Value: 0
   hdriSky:
     m_OverrideState: 1
-    m_Value: {fileID: 8900000, guid: 3e80b688af9b1d84ea52c5d36bb1cbbd, type: 3}
+    m_Value: {fileID: 8900000, guid: 762f22ba43541df4e95e0e7126e8d96c, type: 3}
   distortionMode:
     m_OverrideState: 1
     m_Value: 1
@@ -594,7 +563,6 @@ MonoBehaviour:
   - {fileID: 778829990199776184}
   - {fileID: -8207904721791331438}
   - {fileID: -5324428550511447148}
-  - {fileID: -8485776346818503166}
   - {fileID: -4066159753923094891}
   - {fileID: 7887193552574593481}
   - {fileID: -4820429612251707124}
