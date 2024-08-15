@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Liminality/Scenes/Scene0_Liminality.unity
+    guid: 08d8a3511ac5d6c4d85ee60b5605fae9
+  - enabled: 1
+    path: Assets/Liminality/Scenes/Scene1_Liminality.unity
+    guid: 0aba1bf13b7223642bddf781d24efc89
+  - enabled: 1
+    path: Assets/Liminality/Scenes/Scene3_Liminality.unity
+    guid: d4b53ae631cce4f43b3db44443469b24
+  - enabled: 1
+    path: Assets/Liminality/Scenes/Scene4_Liminality.unity
+    guid: c4f3e88ce8cee0741907a637bf3363a9
   m_configObjects: {}

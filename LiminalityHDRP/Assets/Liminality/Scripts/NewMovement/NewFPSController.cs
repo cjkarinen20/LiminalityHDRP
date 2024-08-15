@@ -12,6 +12,7 @@ public class NewFPSController : MonoBehaviour
     private bool shouldCrouch => Input.GetKeyDown(crouchKey) || Input.GetKeyUp(crouchKey) && !ongoingCrouchAnimation && characterController.isGrounded;
 
     [Header("Functional Options")]
+    [SerializeField] public bool mouseLookEnabled = true;
     [SerializeField] private bool sprintEnabled = true;
     [SerializeField] private bool jumpEnabled = true;
     [SerializeField] private bool crouchEnabled = true;
@@ -177,11 +178,12 @@ public class NewFPSController : MonoBehaviour
         if (canMove) 
         {
             HandleMovementInput();
-            HandleMouseLook();
-
-            if(jumpEnabled)
+            
+            if(mouseLookEnabled)
+                HandleMouseLook();
+            if (jumpEnabled)
                 HandleJump();
-            if(crouchEnabled)
+            if (crouchEnabled)
                 HandleCrouch();
             if (headBobEnabled)
                 HandleHeadBob();

@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject timeText;
     public GameObject playText;
+    public NewFPSController playerController;
 
     public bool isPaused;
 
@@ -40,6 +41,7 @@ public class PauseMenu : MonoBehaviour
         playText.SetActive(false);
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+        playerController.mouseLookEnabled = false;
         Time.timeScale = 0f;
         isPaused = true;
     }
@@ -48,6 +50,8 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         timeText.SetActive(true);
         playText.SetActive(true);
+        Cursor.visible = false;
+        playerController.mouseLookEnabled = true;
         Time.timeScale = 1f;
         isPaused = false;
     }
