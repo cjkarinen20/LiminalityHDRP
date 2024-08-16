@@ -17,9 +17,9 @@ public class LevelTransitionTrigger : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player")
         {
             SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
             
