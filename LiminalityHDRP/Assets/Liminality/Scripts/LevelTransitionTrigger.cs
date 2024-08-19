@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelTransitionTrigger : MonoBehaviour
 {
-    [SerializeField] public int sceneToLoad;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +20,8 @@ public class LevelTransitionTrigger : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
-            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
         }
     }
 }
