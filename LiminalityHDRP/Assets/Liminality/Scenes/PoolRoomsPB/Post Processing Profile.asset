@@ -152,16 +152,16 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   rayTracing:
     m_OverrideState: 0
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 2.5
+    m_Value: 4
   directLightingStrength:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 0.813
   radius:
     m_OverrideState: 1
     m_Value: 2.2
@@ -193,31 +193,31 @@ MonoBehaviour:
     m_Value: 1
   m_StepCount:
     m_OverrideState: 1
-    m_Value: 4
+    m_Value: 6
   m_FullResolution:
     m_OverrideState: 1
     m_Value: 0
   m_MaximumRadiusInPixels:
     m_OverrideState: 1
-    m_Value: 32
+    m_Value: 40
   m_BilateralUpsample:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   m_DirectionCount:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   m_RayLength:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 3
   m_SampleCount:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   m_Denoise:
     m_OverrideState: 1
     m_Value: 1
   m_DenoiserRadius:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.5
 --- !u!114 &-4820429612251707124
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -245,7 +245,7 @@ MonoBehaviour:
     m_Value: 0
   compensation:
     m_OverrideState: 1
-    m_Value: 8.5
+    m_Value: 7
   limitMin:
     m_OverrideState: 0
     m_Value: -1
@@ -1282,7 +1282,7 @@ MonoBehaviour:
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: 45
+    m_Value: 10
 --- !u!114 &3715423491843116721
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1325,13 +1325,13 @@ MonoBehaviour:
     m_Value: 1000
   baseHeight:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 2
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 10
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 75
+    m_Value: 150
   enableVolumetricFog:
     m_OverrideState: 1
     m_Value: 1
@@ -1558,13 +1558,13 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.189
+    m_Value: 0.25
   smoothness:
     m_OverrideState: 1
     m_Value: 0.241
   roundness:
     m_OverrideState: 1
-    m_Value: 0.909
+    m_Value: 1
   rounded:
     m_OverrideState: 1
     m_Value: 1
