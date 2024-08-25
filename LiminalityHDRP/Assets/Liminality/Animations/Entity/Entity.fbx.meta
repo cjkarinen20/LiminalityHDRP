@@ -21,8 +21,7 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
-      human bone 'Hips' not found\n"
+    rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -89,11 +88,14 @@ ModelImporter:
   - 2a9e8e09de08f134fad9d2fe2d11b10b
   - 9b0aabd3b3e83e846bc232e72dc2725e
   - dda8ef83939a8d0469880336c69280cb
+  - 2140c3fab7632574cbdfc1b6d8581b44
   - f2060cad52a8db742b1e0f3875e418d0
   - 32d762ca64a6cc844bf402b997c11229
   - c37f96e5616ee3a4fa72dba14a5bf618
   - adb67991def8d34438d533f8ffb4f2d5
   - 4cb8a92d30fd7e14aa74e39eef0d6adb
+  - 2ab62644f6e30b64c80c135b73d41fdc
+  - bf45faa6cf354eb489c4acf093df2a19
   - 4554ba07808cbb144ad81c0131451544
   - b6e745ca0f268f54fbb906a28300ec38
   - 21c629e5b1306d94a8ff7c8678ea9dd3
@@ -120,7 +122,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Entity_1_0
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1

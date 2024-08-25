@@ -122,11 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &82897711 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7196414042994286014, guid: 2891f01b80d78b144b1a12d157415111, type: 3}
-  m_PrefabInstance: {fileID: 1952849935}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &222588062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1811,6 +1806,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 951384953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &570965420 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7196414042994286014, guid: 2891f01b80d78b144b1a12d157415111, type: 3}
+  m_PrefabInstance: {fileID: 1952849935}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &654055135
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,64 +2052,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &705635499
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -10.392252
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.0000005
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -15
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-      propertyPath: m_Name
-      value: Entity@Breathing Idle
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: -1552442396877136373, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4e4ecbe666cf57745bcb4aed81d46e43, type: 3}
 --- !u!1 &742915041
 GameObject:
   m_ObjectHideFlags: 0
@@ -2925,11 +2867,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2993170354173782711, guid: 2891f01b80d78b144b1a12d157415111, type: 3}
       propertyPath: field of view
-      value: 35
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 2993170354173782711, guid: 2891f01b80d78b144b1a12d157415111, type: 3}
       propertyPath: m_FocalLength
-      value: 11.877622
+      value: 7.1940775
       objectReference: {fileID: 0}
     - target: {fileID: 4068575434242562147, guid: 2891f01b80d78b144b1a12d157415111, type: 3}
       propertyPath: zoomEnabled
@@ -2977,6 +2919,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7196414042994286014, guid: 2891f01b80d78b144b1a12d157415111, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730047064632057321, guid: 2891f01b80d78b144b1a12d157415111, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3799,7 +3745,7 @@ Transform:
   m_GameObject: {fileID: 2956071072289723628}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -11.333254, y: 2.9999998, z: -15}
+  m_LocalPosition: {x: -11.333254, y: 2.943, z: -15}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3880,7 +3826,7 @@ GameObject:
   - component: {fileID: 2471845449012825686}
   - component: {fileID: 2956071072289723631}
   - component: {fileID: 2956071072289723630}
-  - component: {fileID: 2956071072289723629}
+  - component: {fileID: 2956071072289723632}
   m_Layer: 0
   m_Name: AI_Entity
   m_TagString: Untagged
@@ -3888,53 +3834,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2956071072289723629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2956071072289723628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5616e5d812647234fad7d85d7c9b052e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ai: {fileID: 2956071072289723630}
-  destinations:
-  - {fileID: 1908748804}
-  - {fileID: 1656462314}
-  - {fileID: 1825960354}
-  - {fileID: 1051522844}
-  - {fileID: 1080717542}
-  - {fileID: 1603940182}
-  - {fileID: 439943750}
-  - {fileID: 1845626709}
-  - {fileID: 742915042}
-  - {fileID: 1728442348}
-  - {fileID: 900016768}
-  - {fileID: 1003119203}
-  - {fileID: 2101791228}
-  - {fileID: 658418050}
-  - {fileID: 286518875}
-  aiAnim: {fileID: 0}
-  walkSpeed: 2
-  chaseSpeed: 5
-  minIdleTime: 2
-  maxIdleTime: 9
-  idleTime: 0
-  sightDistance: 8
-  catchDistance: 1
-  chaseTime: 0
-  minChaseTime: 5
-  maxChaseTime: 15
-  jumpscareTime: 2
-  walking: 0
-  chasing: 0
-  player: {fileID: 82897711}
-  destinationAmount: 16
-  rayCastOffset: {x: 0, y: 0, z: 0}
-  deathScene: 
 --- !u!195 &2956071072289723630
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3967,7 +3866,7 @@ Animator:
   m_GameObject: {fileID: 2956071072289723628}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 2ebad1e2c10aa994aa58535f897ec129, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1103c3781c47c2948a242500c566c637, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -3978,6 +3877,53 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2956071072289723632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2956071072289723628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5616e5d812647234fad7d85d7c9b052e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ai: {fileID: 2956071072289723630}
+  destinations:
+  - {fileID: 1908748804}
+  - {fileID: 1656462314}
+  - {fileID: 1825960354}
+  - {fileID: 1051522844}
+  - {fileID: 1080717542}
+  - {fileID: 1603940182}
+  - {fileID: 439943750}
+  - {fileID: 1845626709}
+  - {fileID: 742915042}
+  - {fileID: 1728442348}
+  - {fileID: 900016768}
+  - {fileID: 1003119203}
+  - {fileID: 2101791228}
+  - {fileID: 658418050}
+  - {fileID: 286518875}
+  aiAnim: {fileID: 2956071072289723631}
+  walkSpeed: 2
+  chaseSpeed: 5
+  minIdleTime: 2
+  maxIdleTime: 9
+  idleTime: 0
+  sightDistance: 8
+  catchDistance: 1
+  chaseTime: 0
+  minChaseTime: 5
+  maxChaseTime: 15
+  jumpscareTime: 2
+  walking: 0
+  chasing: 0
+  player: {fileID: 570965420}
+  destinationAmount: 16
+  rayCastOffset: {x: 0, y: 0, z: 0}
+  deathScene: 
 --- !u!4 &2998969178466880803
 Transform:
   m_ObjectHideFlags: 0
@@ -5474,5 +5420,4 @@ SceneRoots:
   - {fileID: 247119336}
   - {fileID: 654055139}
   - {fileID: 2127863519}
-  - {fileID: 705635499}
   - {fileID: 2471845449012825686}
