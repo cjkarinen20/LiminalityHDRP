@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject timeText;
     public GameObject playText;
+    public GameObject dateText;
     public NewFPSController playerController;
 
     public bool isPaused;
@@ -17,7 +18,9 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         timeText.SetActive(true);
+        dateText.SetActive(true);
         playText.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -40,6 +43,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         timeText.SetActive(false);
         playText.SetActive(false);
+        dateText.SetActive(false);
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         playerController.mouseLookEnabled = false;
@@ -51,6 +55,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         timeText.SetActive(true);
         playText.SetActive(true);
+        dateText.SetActive(true);
         Cursor.visible = false;
         playerController.mouseLookEnabled = true;
         Time.timeScale = 1f;
