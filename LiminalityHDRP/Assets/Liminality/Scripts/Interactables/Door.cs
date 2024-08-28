@@ -7,7 +7,7 @@ public class Door : Interactable
     private float dot;
     private bool isOpen = false;
     private bool canInteract = true;
-    private Animator animator;
+    public Animator animator;
 
     private void Start()
     {
