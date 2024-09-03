@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(false);
         timeText.SetActive(true);
-        playText.SetActive(false);
+        playText.SetActive(true);
 
     }
 
