@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NewFPSController : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class NewFPSController : MonoBehaviour
     public static Action<float> OnTakeDamage;
     public static Action<float> OnDamage;
     public static Action<float> OnHeal;
+    public Image bloodOverlay;
 
     [Header("Stamina Parameters")]
     [SerializeField] private float maxStamina = 100;
@@ -200,6 +202,7 @@ public class NewFPSController : MonoBehaviour
             if (staminaEnabled)
                 HandleStamina();
 
+            DamageOverlay();
 
             //Debug.Log("Health: " + currentHealth);
             //Debug.Log("Stamina: " + currentStamina);
@@ -375,6 +378,13 @@ public class NewFPSController : MonoBehaviour
             StopCoroutine(regeneratingHealth);
 
         regeneratingHealth = StartCoroutine(RegenerateHealth());
+    }
+    private void DamageOverlay()
+    {
+        float transparency = 1f - (currentHealth / 100f);
+        Color imageColor = Color.white;
+        imageColor.a = transparency;
+        bloodOverlay.color = imageColor;
     }
     private void KillPlayer()
     {
