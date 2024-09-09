@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageTest : MonoBehaviour
+public class healthTest : MonoBehaviour
 {
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
             NewFPSController.OnTakeDamage(1);
     }
-
 }

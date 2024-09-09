@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NewFPSController : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class NewFPSController : MonoBehaviour
 
     [Header("Health Parameters")]
     [SerializeField] private float maxHealth = 100;
-    [SerializeField] private float regenCooldown = 3;
+    [SerializeField] private float regenCooldown = 10;
     [SerializeField] private float healthIncreaseIncrement = 1;
     [SerializeField] private float healthTimeIncrement = 0.1f;
     private float currentHealth;
@@ -204,8 +205,8 @@ public class NewFPSController : MonoBehaviour
 
             DamageOverlay();
 
-            //Debug.Log("Health: " + currentHealth);
-            //Debug.Log("Stamina: " + currentStamina);
+            Debug.Log("Health: " + currentHealth);
+            Debug.Log("Stamina: " + currentStamina);
 
             ApplyFinalMovement();
         }
@@ -394,6 +395,8 @@ public class NewFPSController : MonoBehaviour
             StopCoroutine(regeneratingHealth);
 
         Debug.Log("DEAD");
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         //Add further implementation later
         //Make a "fade to black" animation play here and restart the scene
