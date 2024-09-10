@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class hidingPlace : MonoBehaviour
 {
-    public GameObject hideText, stopHideText;
+    //public GameObject hideText, stopHideText;
     public GameObject normalPlayer, hidingPlayer;
     public enemyAI monsterScript;
     public Transform monsterTransform;
@@ -24,12 +24,12 @@ public class hidingPlace : MonoBehaviour
         {
             if (detector.inTrigger == true)
             {
-                hideText.SetActive(true);
+                //hideText.SetActive(true);
                 interactable = true;
             }
             else if (detector.inTrigger == false)
             {
-                hideText.SetActive(false);
+                //hideText.SetActive(false);
                 interactable = false;
             }
         }
@@ -38,7 +38,7 @@ public class hidingPlace : MonoBehaviour
     {
         if (other.CompareTag("MainCamera"))
         {
-            hideText.SetActive(false);
+            //hideText.SetActive(false);
             interactable = false;
         }
     }
@@ -48,7 +48,7 @@ public class hidingPlace : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                hideText.SetActive(false);
+                //hideText.SetActive(false);
                 hideSound.Play();
                 hidingPlayer.SetActive(true);
                 float distance = Vector3.Distance(monsterTransform.position, normalPlayer.transform.position);
@@ -59,7 +59,7 @@ public class hidingPlace : MonoBehaviour
                         monsterScript.stopChase();
                     }
                 }
-                stopHideText.SetActive(true);
+                //stopHideText.SetActive(true);
                 hiding = true;
                 normalPlayer.SetActive(false);
                 interactable = false;
@@ -69,7 +69,7 @@ public class hidingPlace : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                stopHideText.SetActive(false);
+                //stopHideText.SetActive(false);
                 stopHideSound.Play();
                 normalPlayer.SetActive(true);
                 hidingPlayer.SetActive(false);

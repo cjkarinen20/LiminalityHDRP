@@ -12,12 +12,12 @@ public class enemyAI : MonoBehaviour
     public float walkSpeed, chaseSpeed, minIdleTime, maxIdleTime, idleTime, detectionDistance, catchDistance, searchDistance, minChaseTime, maxChaseTime, minSearchTime, maxSearchTime, jumpscareTime;
     public bool walking, chasing, searching;
     public Transform player;
+    public NewFPSController playerController;
     Transform currentDest;
     Vector3 dest;
     public Vector3 rayCastOffset;
-    public string deathScene;
     public float aiDistance;
-    public GameObject hideText, stopHideText;
+    //public GameObject hideText, stopHideText;
 
     void Start()
     {
@@ -68,15 +68,15 @@ public class enemyAI : MonoBehaviour
             aiAnim.SetTrigger("sprint");
             if (aiDistance <= catchDistance)
             {
-                player.gameObject.SetActive(false);
                 aiAnim.ResetTrigger("walk");
                 aiAnim.ResetTrigger("idle");
                 aiAnim.ResetTrigger("search");
-                hideText.SetActive(false);
-                stopHideText.SetActive(false);
+                //hideText.SetActive(false);
+                //stopHideText.SetActive(false);
                 aiAnim.ResetTrigger("sprint");
                 aiAnim.SetTrigger("jumpscare");
-                StartCoroutine(deathRoutine());
+                StartCoroutine("deathRoutine");
+
                 chasing = false;
             }
         }
@@ -131,6 +131,6 @@ public class enemyAI : MonoBehaviour
     IEnumerator deathRoutine()
     {
         yield return new WaitForSeconds(jumpscareTime);
-        SceneManager.LoadScene(deathScene);
+        playerController.ApplyDamage(50);
     }
 }

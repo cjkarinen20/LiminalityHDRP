@@ -368,7 +368,7 @@ public class NewFPSController : MonoBehaviour
         }
     }
 
-    private void ApplyDamage(float damage)
+    public void ApplyDamage(float damage)
     {
         currentHealth -= damage;
         OnDamage?.Invoke(currentHealth);
@@ -387,7 +387,7 @@ public class NewFPSController : MonoBehaviour
         imageColor.a = transparency;
         bloodOverlay.color = imageColor;
     }
-    private void KillPlayer()
+    public void KillPlayer()
     {
         currentHealth = 0;
 
