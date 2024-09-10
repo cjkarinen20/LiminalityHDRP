@@ -1,46 +1,120 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class flashlight : MonoBehaviour
 {
+    [Header("Flashlight Parameters")]
     public AudioSource AudioSource;
-
     public AudioClip flashlightClick;
-
-    private Vector3 vectorOffset;
-    private GameObject followTarget;
-    public Light light;
+    public AudioClip flashlightFlicker;
+    public GameObject followTarget;
+    public Light flashLight;
     public KeyCode lightToggle = KeyCode.F;
-    public Camera cam;
+    private Vector3 vectorOffset;
     [SerializeField] private float speed = 3.0f;
-    // Start is called before the first frame update
+
+
+    [Header("Battery Life Parameters")]
+    [SerializeField] private bool batteryLifeEnabled = true;
+    [SerializeField] private float maxBattery = 100;
+    [SerializeField] private float batteryUseMultiplier = 1;
+    [SerializeField] private float timeBeforeBatteryRegenStarts = 5;
+    [SerializeField] private float batteryIncreaseIncrement = 2;
+    [SerializeField] private float batteryTimeIncrement = 0.1f;
+    private float currentBatteryLevel;
+    private Coroutine rechargingBattery;
+    public static Action<float> OnBatteryChange;
+
+
+
+
+
+
     void Start()
     {
-        light = GetComponent<Light>();
-        light.enabled = true;
+        currentBatteryLevel = maxBattery;
+        flashLight = GetComponent<Light>();
+        GetComponent<Light>().enabled = false;
         followTarget = Camera.main.gameObject;
         vectorOffset = transform.position - followTarget.transform.position;
     }
 
-    // Update is called once per frame
+
     void Update()
+    {
+       HandleFlashlight();
+       HandleBattery();
+
+       Debug.Log("Battery: " + currentBatteryLevel);
+    }
+    private void HandleBattery()
+    {
+        if (batteryLifeEnabled && GetComponent<Light>().enabled)
+        {
+            if (rechargingBattery != null)
+            {
+                StopCoroutine(rechargingBattery);
+                rechargingBattery = null;
+            }
+            currentBatteryLevel -= batteryUseMultiplier * Time.deltaTime;
+
+            if (currentBatteryLevel < 0)
+                currentBatteryLevel = 0;
+
+            OnBatteryChange?.Invoke(currentBatteryLevel);
+
+            if (currentBatteryLevel <= 0)
+            {
+                StartCoroutine(BatteryDeath());
+            }
+        }
+        if (!GetComponent<Light>().enabled && currentBatteryLevel < maxBattery && rechargingBattery == null)
+        {
+            rechargingBattery = StartCoroutine(RechargeBattery());
+        }
+    }
+    private void HandleFlashlight()
     {
         transform.position = followTarget.transform.position + vectorOffset;
         transform.rotation = Quaternion.Slerp(transform.rotation, followTarget.transform.rotation, speed * Time.deltaTime);
         if (Input.GetKeyDown(lightToggle))
         {
-            if (light.enabled)
+            if (GetComponent<Light>().enabled)
             {
                 AudioSource.PlayOneShot(flashlightClick);
-                light.enabled = false;
+                GetComponent<Light>().enabled = false;
             }
-            else if (!light.enabled)
+            else if (!GetComponent<Light>().enabled && currentBatteryLevel > 0)
             {
                 AudioSource.PlayOneShot(flashlightClick);
-                light.enabled = true;
+                GetComponent<Light>().enabled = true;
             }
 
         }
+    }
+    private IEnumerator RechargeBattery()
+    {
+        yield return new WaitForSeconds(timeBeforeBatteryRegenStarts);
+        WaitForSeconds timeToWait = new WaitForSeconds(batteryTimeIncrement);
+
+        while (currentBatteryLevel < maxBattery)
+        {
+            currentBatteryLevel += batteryIncreaseIncrement;
+
+            if (currentBatteryLevel > maxBattery)
+                currentBatteryLevel = maxBattery;
+
+            yield return timeToWait;
+        }
+        rechargingBattery = null;
+    }
+    private IEnumerator BatteryDeath()
+    {
+        AudioSource.PlayOneShot(flashlightFlicker);
+        yield return new WaitForSeconds(2);
+        GetComponent<Light>().enabled = false;
     }
 }

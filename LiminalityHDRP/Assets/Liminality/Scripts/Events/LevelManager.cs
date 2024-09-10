@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Image loadingIcon;
+    private float loadTarget;
 
     public static LevelManager instance;
 
@@ -27,6 +28,9 @@ public class LevelManager : MonoBehaviour
 
     public async void LoadLevel(string levelName)
     {
+        loadTarget = 0;
+        loadingIcon.fillAmount = 0;
+
         var level = SceneManager.LoadSceneAsync(levelName);
         level.allowSceneActivation = false;
 
@@ -35,14 +39,48 @@ public class LevelManager : MonoBehaviour
         do
         {
             await Task.Delay(100);
-            loadingIcon.fillAmount = level.progress;
+            loadTarget = level.progress;
         }
         while (level.progress < 0.9f);
 
         await Task.Delay(1000);
 
         level.allowSceneActivation = true;
-        loadingScreen.SetActive(false);
+        if (level.isDone)
+        {
+            loadingScreen.SetActive(false);
+        }
 
+    }
+    public async void LoadNextLevel()
+    {
+        loadTarget = 0;
+        loadingIcon.fillAmount = 0;
+
+        var level = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        level.allowSceneActivation = false;
+
+        loadingScreen.SetActive(true);
+
+        do
+        {
+            await Task.Delay(100);
+            loadTarget = level.progress;
+        }
+        while (level.progress < 0.9f);
+
+        await Task.Delay(1000);
+
+        level.allowSceneActivation = true;
+        if (level.isDone)
+        {
+            loadingScreen.SetActive(false);
+        }
+
+
+    }
+    private void Update()
+    {
+        loadingIcon.fillAmount = Mathf.MoveTowards(loadingIcon.fillAmount, loadTarget, Time.deltaTime);
     }
 }
