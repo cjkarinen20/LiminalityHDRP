@@ -21,18 +21,24 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water_V2
-  m_Shader: {fileID: -6465566751694194690, guid: 93bae8690a90f984b8e8d169b5144b51,
-    type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 93bae8690a90f984b8e8d169b5144b51, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _DISABLE_SSR_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
+  m_CustomRenderQueue: 2225
+  stringTagMap:
+    MotionVector: User
+  disabledShaderPasses:
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+  - TransparentBackface
+  - RayTracingPrepass
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -74,28 +80,79 @@ Material:
     - Vector1_0f78c19a80494192a4e131700e2f845d: 5
     - Vector1_975e4fb7f45946b6a9562ca998e6e629: 1
     - Vector1_9b8ca9bcbfa744bc9f20c3ba5869daf3: 0
+    - _AddPrecomputedVelocity: 0
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 0
+    - _AlphaSrcBlend: 1
+    - _BlendMode: 0
+    - _ConservativeDepthOffsetEnable: 0
+    - _CullMode: 2
+    - _CullModeForward: 2
     - _Depth: 2.11
     - _DepthFade: 29.45
+    - _DepthOffsetEnable: 0
+    - _DiffusionProfileHash: 0
+    - _DoubleSidedEnable: 0
+    - _DoubleSidedGIMode: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 0
+    - _EnableBlendModePreserveSpecularLighting: 1
+    - _EnableFogOnTransparent: 1
+    - _ExcludeFromTUAndAA: 0
     - _Foam: 0.26
     - _FoamScale: 12.37
     - _Lerp: 0.116
     - _NormalStrength: 0
+    - _OpaqueCullMode: 2
     - _QueueControl: 1
     - _QueueOffset: 0
+    - _RayTracing: 0
+    - _ReceivesSSR: 1
+    - _ReceivesSSRTransparent: 0
     - _ReflectionRefraction: 0.4
     - _ReflectionStrength: 0.125
     - _Refraction: 10
+    - _RefractionModel: 0
+    - _RenderQueueType: 1
+    - _RequireSplitLighting: 0
     - _RippleStrength: 1
     - _Smoothness: 0.263
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 8
+    - _StencilRefDistortionVec: 4
+    - _StencilRefGBuffer: 10
+    - _StencilRefMV: 40
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 9
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskGBuffer: 15
+    - _StencilWriteMaskMV: 41
+    - _SupportDecals: 1
+    - _SurfaceType: 0
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
+    - _UseShadowThreshold: 0
     - _WaterLerp: 0.012
     - _Wave: 0.388
     - _WaveY: 0
     - _WaveZ: 0
+    - _ZTestDepthEqualForOpaque: 3
+    - _ZTestGBuffer: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 1
     m_Colors:
-    - Color_9341d1752042467cbb1f079a16a65368: {r: 0.3646849, g: 0.9811321, b: 0.88229793,
-        a: 1}
+    - Color_9341d1752042467cbb1f079a16a65368: {r: 0.3646849, g: 0.9811321, b: 0.88229793, a: 1}
     - Vector3_3035352958164fd69a774263c7306848: {r: 0, g: 0, b: 0, a: 0}
     - _Albedo: {r: 0.16571736, g: 0.7169812, b: 0.60488665, a: 0.007843138}
+    - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FoamColor: {r: 0.41091138, g: 0.509434, b: 0.48480332, a: 0}
     - _Player: {r: 0, g: 0, b: 0, a: 0}
     - _UV1: {r: 3.29, g: 2.84, b: 2.74, a: 2}
@@ -103,3 +160,19 @@ Material:
     - _WaterSpeed: {r: 0.02, g: 0.02, b: 0.02, a: 0}
     - _WaterSpeed2: {r: 0.02, g: 0.02, b: 0.02, a: 0}
   m_BuildTextureStacks: []
+--- !u!114 &9179574795001065177
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 13
+  hdPluginSubTargetMaterialVersions:
+    m_Keys: []
+    m_Values: 
