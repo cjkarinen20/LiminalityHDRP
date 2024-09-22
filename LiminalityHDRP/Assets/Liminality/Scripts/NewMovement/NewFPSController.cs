@@ -24,6 +24,7 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private bool interactionEnabled = true;
     [SerializeField] private bool footstepsEnabled = true;
     [SerializeField] private bool staminaEnabled = true;
+    [SerializeField] private bool fallDamageEnabled = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
@@ -56,6 +57,15 @@ public class NewFPSController : MonoBehaviour
     public static Action<float> OnDamage;
     public static Action<float> OnHeal;
     public Image bloodOverlay;
+
+    [Header("Fall Damage Parameters")]
+    [SerializeField] private float fallDamage = 50;
+    [SerializeField] private float minFallHeight = 5f;
+    Rigidbody rigidBody;
+    private bool _grounded;
+    private bool wasGrounded;
+    private bool wasFalling;
+    private float beginFallHeight;
 
     [Header("Stamina Parameters")]
     [SerializeField] private float maxStamina = 100;
@@ -159,7 +169,6 @@ public class NewFPSController : MonoBehaviour
         OnTakeDamage -= ApplyDamage;
     }
 
-
     void Awake()
     {
         instance = this;
@@ -173,7 +182,6 @@ public class NewFPSController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
 
     void Update()
     {
@@ -198,10 +206,11 @@ public class NewFPSController : MonoBehaviour
             {
                 HandleInteractionCheck();
                 HandleInteractionInput();
-
             }
             if (staminaEnabled)
                 HandleStamina();
+            if (fallDamageEnabled)
+                FallDamage(fallDamage);
 
             DamageOverlay();
 
@@ -231,6 +240,12 @@ public class NewFPSController : MonoBehaviour
         if (shouldJump)
             moveDirection.y = jumpForce;
     }
+    private void CheckGround()
+    {
+        _grounded = Physics.Raycast(transform.position + Vector3.up, -Vector3.up, 1.01f);
+    }
+    private bool isFalling { get { return (!_grounded && rigidBody.velocity.y < 0); } }
+
     private void HandleCrouch()
     {
         if (shouldCrouch)
@@ -249,9 +264,9 @@ public class NewFPSController : MonoBehaviour
                 playerCamera.transform.localPosition.z);
 
             playerCamera.transform.localPosition = new Vector3(
-    playerCamera.transform.localPosition.x,
-    defaultYPos + Mathf.Sin(Timer) * (isCrouching ? crouchbobAmount : isSprinting ? sprintbobAmount : walkbobAmount),
-    playerCamera.transform.localPosition.z);
+                playerCamera.transform.localPosition.x,
+                defaultYPos + Mathf.Sin(Timer) * (isCrouching ? crouchbobAmount : isSprinting ? sprintbobAmount : walkbobAmount),
+                playerCamera.transform.localPosition.z);
         }
 
     }
@@ -367,7 +382,13 @@ public class NewFPSController : MonoBehaviour
             footstepTimer = baseStepSpeed;
         }
     }
-
+    private void DamageOverlay()
+    {
+        float transparency = 1f - (currentHealth / 100f);
+        Color imageColor = Color.white;
+        imageColor.a = transparency;
+        bloodOverlay.color = imageColor;
+    }
     public void ApplyDamage(float damage)
     {
         currentHealth -= damage;
@@ -380,12 +401,25 @@ public class NewFPSController : MonoBehaviour
 
         regeneratingHealth = StartCoroutine(RegenerateHealth());
     }
-    private void DamageOverlay()
+    public void FallDamage(float fallDamage)
     {
-        float transparency = 1f - (currentHealth / 100f);
-        Color imageColor = Color.white;
-        imageColor.a = transparency;
-        bloodOverlay.color = imageColor;
+        CheckGround();
+
+        if(!wasFalling && isFalling)
+        {
+            beginFallHeight = transform.position.y;
+        }
+        if (!wasGrounded && _grounded)
+        {
+            float fallDistance = beginFallHeight - transform.position.y;
+            if (fallDistance > minFallHeight)
+            {
+                ApplyDamage(fallDamage);
+            }
+        }
+        wasGrounded = _grounded;
+        wasFalling = isFalling;
+
     }
     public void KillPlayer()
     {
