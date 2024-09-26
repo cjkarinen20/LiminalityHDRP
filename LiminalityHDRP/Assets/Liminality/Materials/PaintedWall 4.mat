@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VintageTile
+  m_Name: PaintedWall 4
   m_Shader: {fileID: 4800000, guid: 6e4ae4064600d784cac1e41a9e6f2e59, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -21,7 +21,7 @@ Material:
   - _PIXEL_DISPLACEMENT
   - _PIXEL_DISPLACEMENT_LOCK_OBJECT_SCALE
   m_InvalidKeywords: []
-  m_LightmapFlags: 1
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2225
@@ -41,8 +41,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: ae570ee997d26a84ab7efad5db58dfbb, type: 3}
-        m_Scale: {x: 0.25, y: 0.25}
+        m_Texture: {fileID: 2800000, guid: b00af7abfc4ce0447a79ba955dd07748, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
         m_Texture: {fileID: 0}
@@ -53,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: a3a0eb80d02932d4baa45e07d8a9a1f2, type: 3}
+        m_Texture: {fileID: 2800000, guid: c6718ecaa13d8284386412bbc0aa6062, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CoatMaskMap:
@@ -85,7 +85,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
-        m_Texture: {fileID: 2800000, guid: 20a8bdd075c03dc4c8895fc7cf99fa6f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4bd3b5383cdd5c9429473774c1780f5a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IridescenceMaskMap:
@@ -97,19 +97,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ae570ee997d26a84ab7efad5db58dfbb, type: 3}
-        m_Scale: {x: 0.25, y: 0.25}
+        m_Texture: {fileID: 2800000, guid: b00af7abfc4ce0447a79ba955dd07748, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
-        m_Texture: {fileID: 2800000, guid: 50dd7a06568d1f94a8ea19d762139c9f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7e8f02344e560c2408c5a96f0c646cc5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: e12254671bb104a4ab4908438cfa1c4e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4f8db04fb806ca142ac3808a3885971d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: a3a0eb80d02932d4baa45e07d8a9a1f2, type: 3}
+        m_Texture: {fileID: 2800000, guid: c6718ecaa13d8284386412bbc0aa6062, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
@@ -117,11 +117,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: a6f54fb31c541a04cb2fd95f30cb0ea9, type: 3}
+        m_Texture: {fileID: 2800000, guid: c19b321b0fb5f6549a3a12b44bafbe9d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 20a8bdd075c03dc4c8895fc7cf99fa6f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4bd3b5383cdd5c9429473774c1780f5a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
@@ -221,14 +221,14 @@ Material:
     - _HeightPoMAmplitude: 0.04
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
-    - _InvTilingScale: 4
+    - _InvTilingScale: 1
     - _Ior: 1.5
     - _IridescenceMask: 1
     - _IridescenceThickness: 1
     - _LinkDetailsWithBase: 0
     - _MaterialID: 1
     - _Metallic: 1
-    - _MetallicRemapMax: 0.009712398
+    - _MetallicRemapMax: 0
     - _MetallicRemapMin: 0
     - _Mode: 0
     - _NormalMapSpace: 0
@@ -237,9 +237,9 @@ Material:
     - _ObjectSpaceUVMappingEmissive: 0
     - _OcclusionStrength: 1
     - _OpaqueCullMode: 2
-    - _PPDLodThreshold: 16
-    - _PPDMaxSamples: 64
-    - _PPDMinSamples: 64
+    - _PPDLodThreshold: 5
+    - _PPDMaxSamples: 15
+    - _PPDMinSamples: 5
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
     - _Parallax: 0.02
@@ -248,7 +248,7 @@ Material:
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
     - _Smoothness: 0.5
-    - _SmoothnessRemapMax: 1
+    - _SmoothnessRemapMax: 0.34759718
     - _SmoothnessRemapMin: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularAAScreenSpaceVariance: 0.1
@@ -290,13 +290,13 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.7660377, g: 0.7660377, b: 0.7660377, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.7660377, g: 0.7660377, b: 0.7660377, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissiveColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
@@ -307,7 +307,7 @@ Material:
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &4740787038498788803
+--- !u!114 &5482211747369182035
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
