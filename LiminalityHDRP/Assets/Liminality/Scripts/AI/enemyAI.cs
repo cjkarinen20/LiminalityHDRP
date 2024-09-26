@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class enemyAI : MonoBehaviour
 {
     public NavMeshAgent ai;
+    public Camera killCam;
+    public Camera mainCam;
     public List<Transform> destinations;
     public Animator aiAnim;
     public float walkSpeed, chaseSpeed, minIdleTime, maxIdleTime, idleTime, detectionDistance, catchDistance, searchDistance, minChaseTime, maxChaseTime, minSearchTime, maxSearchTime, jumpscareTime;
@@ -19,12 +21,13 @@ public class enemyAI : MonoBehaviour
     public float aiDistance;
     //public GameObject hideText, stopHideText;
 
-    void Start()
+    private void Start()
     {
         walking = true;
         currentDest = destinations[Random.Range(0, destinations.Count)];
+        killCam.enabled = false;
     }
-    void Update()
+    private void Update()
     {
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
@@ -75,6 +78,9 @@ public class enemyAI : MonoBehaviour
                 //stopHideText.SetActive(false);
                 aiAnim.ResetTrigger("sprint");
                 aiAnim.SetTrigger("jumpscare");
+                ai.speed = 0;
+                killCam.enabled = true;
+                mainCam.enabled = false;
                 StartCoroutine("deathRoutine");
 
                 chasing = false;
@@ -109,6 +115,7 @@ public class enemyAI : MonoBehaviour
         StopCoroutine("chaseRoutine");
         currentDest = destinations[Random.Range(0, destinations.Count)];
     }
+
     IEnumerator stayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
@@ -131,6 +138,6 @@ public class enemyAI : MonoBehaviour
     IEnumerator deathRoutine()
     {
         yield return new WaitForSeconds(jumpscareTime);
-        playerController.ApplyDamage(50);
+        playerController.KillPlayer();
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class NewFPSController : MonoBehaviour
 {
-    public bool canMove { get; private set; } = true;
+    public bool canMove = true;
     private bool isSprinting => sprintEnabled && Input.GetKey(sprintKey) && Input.GetKey(KeyCode.W) && !isCrouching;
     private bool shouldJump => Input.GetKeyDown(jumptKey) && characterController.isGrounded;
     private bool shouldCrouch => Input.GetKeyDown(crouchKey) || Input.GetKeyUp(crouchKey) && !ongoingCrouchAnimation && characterController.isGrounded;
