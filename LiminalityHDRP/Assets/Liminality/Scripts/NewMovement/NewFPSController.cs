@@ -243,7 +243,7 @@ public class NewFPSController : MonoBehaviour
     }
     private void CheckGround()
     {
-        _grounded = Physics.Raycast(transform.position + Vector3.up, -Vector3.up, 1.01f);
+        _grounded = Physics.Raycast(characterController.transform.position + Vector3.up, -Vector3.up, 1.01f);
     }
     private bool isFalling { get { return (!_grounded && rigidBody.velocity.y < 0); } }
 
@@ -415,11 +415,11 @@ public class NewFPSController : MonoBehaviour
 
         if(!wasFalling && isFalling)
         {
-            beginFallHeight = transform.position.y;
+            beginFallHeight = characterController.transform.position.y;
         }
         if (!wasGrounded && _grounded)
         {
-            float fallDistance = beginFallHeight - transform.position.y;
+            float fallDistance = beginFallHeight - characterController.transform.position.y;
             if (fallDistance > minFallHeight)
             {
                 ApplyDamage(fallDamage);
