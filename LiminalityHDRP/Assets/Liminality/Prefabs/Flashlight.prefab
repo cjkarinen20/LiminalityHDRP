@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5306706961971022312}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.006, y: -0.1, z: -0.084}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &5876941881311113161
 Light:
@@ -78,7 +78,7 @@ Light:
       e32: 0
       e33: 1
     m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
+  m_Cookie: {fileID: 2800000, guid: a234edecc1ae4974b87922848a1faa03, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
@@ -233,10 +233,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 2592010879591455802}
   flashlightClick: {fileID: 8300000, guid: 509960636e1f4384095f89879698a8fb, type: 3}
-  light: {fileID: 5876941881311113161}
+  flashlightFlicker: {fileID: 8300000, guid: ae723b84375a14a4fab01243926b4ca1, type: 3}
+  followTarget: {fileID: 0}
+  flashLight: {fileID: 5876941881311113161}
   lightToggle: 102
-  cam: {fileID: 0}
   speed: 3
+  batteryLifeEnabled: 1
+  maxBattery: 100
+  batteryUseMultiplier: 1
+  timeBeforeBatteryRegenStarts: 5
+  batteryIncreaseIncrement: 2
+  batteryTimeIncrement: 0.1
 --- !u!82 &2592010879591455802
 AudioSource:
   m_ObjectHideFlags: 0

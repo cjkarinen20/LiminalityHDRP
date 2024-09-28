@@ -77,7 +77,7 @@ public class NewFPSController : MonoBehaviour
     private Coroutine regeneratingStamina;
     public static Action<float> OnStaminaChange;
 
-    [Header("Look Parameters")]
+    [Header("Jump Parameters")]
     [SerializeField] private float jumpForce = 8.0f;
     [SerializeField] private float gravity = 30.0f;
 
@@ -108,6 +108,7 @@ public class NewFPSController : MonoBehaviour
 
     [Header("Footstep Parameters")]
     [SerializeField] private float baseStepSpeed = 0.7f;
+    [SerializeField] private float sprintStepSpeed = 0.3f;
     [SerializeField] private float crouchStepMultiplier = 1.5f;
     [SerializeField] private float sprintStepMultiplier = 0.3f;
     [SerializeField] private AudioSource footstepAudioSource = default;
@@ -172,7 +173,7 @@ public class NewFPSController : MonoBehaviour
     void Awake()
     {
         instance = this;
-
+        rigidBody = GetComponent<Rigidbody>();
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponentInChildren<CharacterController>();
         defaultYPos = playerCamera.transform.localPosition.y;
@@ -336,51 +337,58 @@ public class NewFPSController : MonoBehaviour
 
         footstepTimer -= Time.deltaTime;
 
-        if (footstepTimer <= 0)
-        {
-            if (Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, 3))
+            if (footstepTimer <= 0)
             {
-                switch(hit.collider.tag)
+                footstepAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+                if (Physics.Raycast(characterController.transform.position, Vector3.down, out RaycastHit hit, 3))
                 {
-                    case "Grass":
+                    switch (hit.collider.tag)
+                    {
+                        case "Grass":
+                            if (isSprinting)
+                                footstepAudioSource.PlayOneShot(grassRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                            else
+                            {
+                                footstepAudioSource.PlayOneShot(grassSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                            }
+                            break;
+                        case "Dirt":
+                            if (isSprinting)
+                                footstepAudioSource.PlayOneShot(dirtRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                            else
+                            {
+                                footstepAudioSource.PlayOneShot(dirtSounds[UnityEngine.Random.Range(0, dirtSounds.Length - 1)]);
+                            }
+                            break;
+                        case "Tile":
+                            if (isSprinting)
+                                footstepAudioSource.PlayOneShot(tileRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                            else
+                            {
+                                footstepAudioSource.PlayOneShot(tileSounds[UnityEngine.Random.Range(0, tileSounds.Length - 1)]);
+                            }
+                            break;
+                        case "Water":
+                            if (isSprinting)
+                                footstepAudioSource.PlayOneShot(waterRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                            else
+                            {
+                                footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);
+                            }
+                            break;
+                        default:
                         if (isSprinting)
-                            footstepAudioSource.PlayOneShot(grassRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                            footstepTimer = sprintStepSpeed;
                         else
-                        {
-                            footstepAudioSource.PlayOneShot(grassSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
-                        }
+                            footstepTimer = baseStepSpeed;
                         break;
-                    case "Dirt":
-                        if (isSprinting)
-                            footstepAudioSource.PlayOneShot(dirtRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
-                        else
-                        {
-                            footstepAudioSource.PlayOneShot(dirtSounds[UnityEngine.Random.Range(0, dirtSounds.Length - 1)]);
-                        }
-                        break;
-                    case "Tile":
-                        if (isSprinting)
-                            footstepAudioSource.PlayOneShot(tileRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
-                        else
-                        {
-                            footstepAudioSource.PlayOneShot(tileSounds[UnityEngine.Random.Range(0, tileSounds.Length - 1)]);
-                        }
-                        break;
-                    case "Water":
-                        if (isSprinting)
-                            footstepAudioSource.PlayOneShot(waterRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
-                        else
-                        {
-                            footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);
-                        }              
-                        break;
-                    default:
-                        footstepTimer = baseStepSpeed;
-                        break;
+                    }
                 }
+            if (isSprinting)
+                footstepTimer = sprintStepSpeed;
+            else
+                footstepTimer = baseStepSpeed;
             }
-            footstepTimer = baseStepSpeed;
-        }
     }
     private void DamageOverlay()
     {

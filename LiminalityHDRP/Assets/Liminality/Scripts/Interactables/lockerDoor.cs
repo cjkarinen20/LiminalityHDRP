@@ -10,6 +10,10 @@ public class lockerDoor : Interactable
     private bool canInteract = true;
     private Animator animator;
 
+    public AudioSource audioSource;
+    public AudioClip doorOpen;
+    public AudioClip doorClose;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -29,6 +33,15 @@ public class lockerDoor : Interactable
             Vector3 doorTransformDirection = transform.TransformDirection(Vector3.forward);
             Vector3 playerTransformDirection = NewFPSController.instance.transform.position - transform.position;
             dot = Vector3.Dot(doorTransformDirection, playerTransformDirection);
+
+            if (isOpen)
+            {
+                audioSource.PlayOneShot(doorOpen);
+            }
+            else
+            {
+                audioSource.PlayOneShot(doorClose);
+            }
 
             animator.SetFloat("Dot", dot);
             animator.SetBool("isOpen", isOpen);

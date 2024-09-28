@@ -11,14 +11,23 @@ public class enemyAI : MonoBehaviour
     public Camera mainCam;
     public List<Transform> destinations;
     public Animator aiAnim;
-    public float walkSpeed, chaseSpeed, minIdleTime, maxIdleTime, idleTime, detectionDistance, catchDistance, searchDistance, minChaseTime, maxChaseTime, minSearchTime, maxSearchTime, jumpscareTime;
-    public bool walking, chasing, searching;
     public Transform player;
     public NewFPSController playerController;
+    [Header("AI Settings")]
+    public float walkSpeed, chaseSpeed, minIdleTime, maxIdleTime, idleTime, detectionDistance, catchDistance, searchDistance, minChaseTime, maxChaseTime, minSearchTime, maxSearchTime, jumpscareTime;
+    public bool walking, chasing, searching;
+
     Transform currentDest;
     Vector3 dest;
     public Vector3 rayCastOffset;
     public float aiDistance;
+    private float footstepTimer;
+
+    [Header("Footstep Sounds")]
+    [SerializeField] private AudioClip[] waterSounds = default;
+    [SerializeField] private float baseStepSpeed = 0.7f;
+    [SerializeField] private float sprintStepSpeed = 0.3f;
+    [SerializeField] private AudioSource footstepAudioSource = default;
     //public GameObject hideText, stopHideText;
 
     private void Start()
@@ -62,6 +71,7 @@ public class enemyAI : MonoBehaviour
         }
         if (chasing == true)
         {
+            HandleFootsteps();
             dest = player.position;
             ai.destination = dest;
             ai.speed = chaseSpeed;
@@ -88,6 +98,7 @@ public class enemyAI : MonoBehaviour
         }
         if (walking == true)
         {
+            HandleFootsteps();
             dest = currentDest.position;
             ai.destination = dest;
             ai.speed = walkSpeed;
@@ -115,7 +126,28 @@ public class enemyAI : MonoBehaviour
         StopCoroutine("chaseRoutine");
         currentDest = destinations[Random.Range(0, destinations.Count)];
     }
-
+    private void HandleFootsteps()
+    {
+        footstepTimer -= Time.deltaTime;
+        if (walking == true)
+        {
+            if (footstepTimer <= 0)
+            {
+                footstepAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+                footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);
+                footstepTimer = baseStepSpeed;
+            }
+        }
+        else if (chasing == true)
+        {
+            if (footstepTimer <= 0)
+            {
+                footstepAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+                footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);
+                footstepTimer = sprintStepSpeed;
+            }
+        }
+    }
     IEnumerator stayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);

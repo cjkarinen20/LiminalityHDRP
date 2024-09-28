@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class mannequinAI : MonoBehaviour
 {
+    public GameObject deathStatic;
     public Animator aiAnimator;
     public NewFPSController playerController;
     public NavMeshAgent mannequin;
@@ -16,6 +17,15 @@ public class mannequinAI : MonoBehaviour
     public float aiSpeed;
     public float catchDistance;
     public float jumpscareTime;
+    private float footstepTimer;
+
+    [Header("Footstep Sounds")]
+    [SerializeField] private float baseStepSpeed = 0.7f;
+    [SerializeField] private AudioSource footstepAudioSource = default;
+    [SerializeField] private AudioClip[] grassSounds = default;
+    [SerializeField] private AudioClip[] dirtSounds = default;
+    [SerializeField] private AudioClip[] tileSounds = default;
+    [SerializeField] private AudioClip[] waterSounds = default;
 
     private void Start()
     {
@@ -36,6 +46,7 @@ public class mannequinAI : MonoBehaviour
 
         if (!GeometryUtility.TestPlanesAABB(planes, this.gameObject.GetComponent<Renderer>().bounds))
         {
+            HandleFootsteps();
             mannequin.speed = aiSpeed;
             aiAnimator.speed = 1;
             destination = player.position;
@@ -43,9 +54,12 @@ public class mannequinAI : MonoBehaviour
 
             if (distance <= catchDistance)
             {
+                aiAnimator.ResetTrigger("walking");
+                aiAnimator.SetTrigger("idle");
                 playerCam.enabled = false;
                 killCam.enabled = true;
                 aiAnimator.speed = 0;
+                deathStatic.SetActive(true);
                 StartCoroutine("deathRoutine");
             }
 
@@ -55,5 +69,46 @@ public class mannequinAI : MonoBehaviour
     {
         yield return new WaitForSeconds(jumpscareTime);
         playerController.KillPlayer();
+    }
+    private void HandleFootsteps()
+    {
+
+        footstepTimer -= Time.deltaTime;
+
+        if (footstepTimer <= 0)
+        {
+            footstepAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+            if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 3))
+            {
+                switch (hit.collider.tag)
+                {
+
+                    case "Grass":
+                        {
+                            footstepAudioSource.PlayOneShot(grassSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                        }
+                        break;
+                    case "Dirt":
+                        {
+                            footstepAudioSource.PlayOneShot(dirtSounds[UnityEngine.Random.Range(0, dirtSounds.Length - 1)]);
+                        }
+                        break;
+                    case "Tile":
+                        {
+                            footstepAudioSource.PlayOneShot(tileSounds[UnityEngine.Random.Range(0, tileSounds.Length - 1)]);
+                        }
+                        break;
+                    case "Water":
+                        {
+                            footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);
+                        }
+                        break;
+                    default:
+                        footstepTimer = baseStepSpeed;
+                        break;
+                }
+            }
+            footstepTimer = baseStepSpeed;
+        }
     }
 }
