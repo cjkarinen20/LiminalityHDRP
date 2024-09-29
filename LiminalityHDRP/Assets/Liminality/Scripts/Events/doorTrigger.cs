@@ -5,6 +5,7 @@ using UnityEngine;
 public class doorTrigger : Interactable
 {
     public LevelManager levelManager;
+    public string levelName;
     public override void OnFocus()
     {
 
@@ -15,7 +16,7 @@ public class doorTrigger : Interactable
     }
     public override void OnInteract()
     {
-        levelManager.LoadNextLevel();
+        levelManager.LoadLevel(levelName);
     }
 
 }

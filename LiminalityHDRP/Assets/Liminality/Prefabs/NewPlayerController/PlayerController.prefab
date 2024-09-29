@@ -550,8 +550,8 @@ MonoBehaviour:
   sprintKey: 304
   jumptKey: 32
   crouchKey: 306
-  zoomKey: 324
-  interactKey: 101
+  zoomKey: 325
+  interactKey: 324
   walkSpeed: 2.5
   sprintSpeed: 4.5
   crouchSpeed: 1.5

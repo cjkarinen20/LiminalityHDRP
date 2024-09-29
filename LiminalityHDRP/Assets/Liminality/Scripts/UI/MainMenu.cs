@@ -17,9 +17,4 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
-    public void SettingsMenu()
-    {
-        //add settings menu
-        //determine whether to make a new scene or just a new canvas
-    }
 }
