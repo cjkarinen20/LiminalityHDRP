@@ -20,7 +20,7 @@ public class Door : Interactable
     }
     public override void OnFocus()
     {
-        
+        Debug.Log(dot);
     }
 
     public override void OnInteract()
@@ -30,7 +30,7 @@ public class Door : Interactable
         if (canInteract)
         {
             isOpen = !isOpen;
-            Vector3 doorTransformDirection = transform.TransformDirection(Vector3.forward);
+            Vector3 doorTransformDirection = this.transform.TransformDirection(Vector3.forward);
             Vector3 playerTransformDirection = NewFPSController.instance.transform.position - transform.position;
             dot = Vector3.Dot(doorTransformDirection, playerTransformDirection);
             Debug.Log(dot);

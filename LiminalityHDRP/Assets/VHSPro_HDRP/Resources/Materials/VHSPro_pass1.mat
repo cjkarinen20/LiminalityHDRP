@@ -19,6 +19,7 @@ Material:
   - VHS_JITTER_V_ON
   - VHS_LINENOISE_ON
   - VHS_SCANLINES_ON
+  - VHS_STRETCH_ON
   - VHS_TAPENOISE_ON
   - VHS_YIQNOISE_ON
   m_InvalidKeywords: []

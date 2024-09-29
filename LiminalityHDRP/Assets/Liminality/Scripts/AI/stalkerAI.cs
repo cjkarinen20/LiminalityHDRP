@@ -28,8 +28,4 @@ public class stalkerAI : MonoBehaviour
             stalker.destination = destination;
         }
     }
-
-
-
-
 }

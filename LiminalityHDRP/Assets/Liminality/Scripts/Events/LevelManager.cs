@@ -32,13 +32,13 @@ public class LevelManager : MonoBehaviour
         loadingIcon.fillAmount = 0;
 
         var level = SceneManager.LoadSceneAsync(levelName);
-        level.allowSceneActivation = false;
+        //level.allowSceneActivation = false;
 
         loadingScreen.SetActive(true);
 
         do
         {
-            await Task.Delay(100);
+            await Task.Delay(1000);
             loadTarget = level.progress;
         }
         while (level.progress < 0.9f);
@@ -58,13 +58,13 @@ public class LevelManager : MonoBehaviour
         loadingIcon.fillAmount = 0;
 
         var level = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-        level.allowSceneActivation = false;
+        //level.allowSceneActivation = false;
 
         loadingScreen.SetActive(true);
 
         do
         {
-            await Task.Delay(100);
+            await Task.Delay(1000);
             loadTarget = level.progress;
         }
         while (level.progress < 0.9f);

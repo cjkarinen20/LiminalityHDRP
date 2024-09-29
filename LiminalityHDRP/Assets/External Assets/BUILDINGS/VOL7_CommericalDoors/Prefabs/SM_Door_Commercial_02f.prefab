@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1030991113}
   - component: {fileID: 1030991114}
   - component: {fileID: 1030991115}
-  - component: {fileID: 5962852670001362035}
   - component: {fileID: 2065771730393967288}
   - component: {fileID: 8163494994484946180}
-  m_Layer: 3
+  - component: {fileID: 7127022226794016217}
+  m_Layer: 8
   m_Name: SM_Door_Commercial_02f
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,30 +90,9 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300008, guid: abc00000000004808530934951558120, type: 3}
---- !u!95 &5962852670001362035
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030991112}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: abc00000000004808530934951558120, type: 3}
-  m_Controller: {fileID: 9100000, guid: 375a0b3f977d7b14a9f61a0de84d8235, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2065771730393967288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8c6659e69718f4a90dab9a090fdf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 5962852670001362035}
+  animator: {fileID: 7127022226794016217}
   audioSource: {fileID: 8163494994484946180}
   doorOpen: {fileID: 8300000, guid: 99b31e378f7a10843b44cab5a81508c9, type: 3}
   doorClose: {fileID: 8300000, guid: 9f792195588dce640926230dc8e397cf, type: 3}
@@ -226,6 +205,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &7127022226794016217
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030991112}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: abc00000000004808530934951558120, type: 3}
+  m_Controller: {fileID: 9100000, guid: 375a0b3f977d7b14a9f61a0de84d8235, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1030991116
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 1030991117}
   - component: {fileID: 1030991118}
   - component: {fileID: 1030991119}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: SM_Door_Commercial_02f_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 1030991121}
   - component: {fileID: 1030991122}
   - component: {fileID: 1030991123}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: SM_Door_Commercial_02f_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 1030991125}
   - component: {fileID: 1030991126}
   - component: {fileID: 1030991127}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: SM_Door_Commercial_02f_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 1030991129}
   - component: {fileID: 1030991130}
   - component: {fileID: 1030991131}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: SM_Door_Commercial_02f_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -70,6 +70,8 @@ public class NewFPSController : MonoBehaviour
     [Header("Stamina Parameters")]
     [SerializeField] private float maxStamina = 100;
     [SerializeField] private float staminaUseMultiplier = 5;
+    [SerializeField] private AudioSource staminaAudioSource;
+    [SerializeField] private AudioClip staminaOutSound;
     [SerializeField] private float timeBeforeStaminaRegenStarts = 5;
     [SerializeField] private float staminaIncreaseIncrement = 2;
     [SerializeField] private float staminaTimeIncrement = 0.1f;
@@ -288,7 +290,12 @@ public class NewFPSController : MonoBehaviour
             OnStaminaChange?.Invoke(currentStamina);
 
             if (currentStamina <= 0)
+            {
+                staminaAudioSource.PlayOneShot(staminaOutSound);
                 sprintEnabled = false;
+
+            }
+
         }
         if (!isSprinting && currentStamina < maxStamina && regeneratingStamina == null)
         {
@@ -346,7 +353,7 @@ public class NewFPSController : MonoBehaviour
                     {
                         case "Grass":
                             if (isSprinting)
-                                footstepAudioSource.PlayOneShot(grassRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                                footstepAudioSource.PlayOneShot(grassRunSounds[UnityEngine.Random.Range(0, grassRunSounds.Length - 1)]);
                             else
                             {
                                 footstepAudioSource.PlayOneShot(grassSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
@@ -354,7 +361,7 @@ public class NewFPSController : MonoBehaviour
                             break;
                         case "Dirt":
                             if (isSprinting)
-                                footstepAudioSource.PlayOneShot(dirtRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                                footstepAudioSource.PlayOneShot(dirtRunSounds[UnityEngine.Random.Range(0, dirtRunSounds.Length - 1)]);
                             else
                             {
                                 footstepAudioSource.PlayOneShot(dirtSounds[UnityEngine.Random.Range(0, dirtSounds.Length - 1)]);
@@ -362,7 +369,7 @@ public class NewFPSController : MonoBehaviour
                             break;
                         case "Tile":
                             if (isSprinting)
-                                footstepAudioSource.PlayOneShot(tileRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                                footstepAudioSource.PlayOneShot(tileRunSounds[UnityEngine.Random.Range(0, tileRunSounds.Length - 1)]);
                             else
                             {
                                 footstepAudioSource.PlayOneShot(tileSounds[UnityEngine.Random.Range(0, tileSounds.Length - 1)]);
@@ -370,7 +377,7 @@ public class NewFPSController : MonoBehaviour
                             break;
                         case "Water":
                             if (isSprinting)
-                                footstepAudioSource.PlayOneShot(waterRunSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
+                                footstepAudioSource.PlayOneShot(waterRunSounds[UnityEngine.Random.Range(0, waterRunSounds.Length - 1)]);
                             else
                             {
                                 footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1031006975}
   - component: {fileID: 1031006976}
   - component: {fileID: 1031006977}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SM_Light_Industrial_Set_14a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1111112, y: 1.1111112, z: 1.1111112}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1031006979}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 1031006979}
   - component: {fileID: 1031006980}
   - component: {fileID: 1031006981}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SM_Light_Industrial_Set_14a_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 1031006983}
   - component: {fileID: 1031006984}
   - component: {fileID: 1031006985}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SM_Light_Industrial_Set_14a_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 1031006987}
   - component: {fileID: 1031006988}
   - component: {fileID: 1031006989}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SM_Light_Industrial_Set_14a_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ GameObject:
   - component: {fileID: 1031006991}
   - component: {fileID: 1031006992}
   - component: {fileID: 1031006993}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SM_Light_Industrial_Set_14a_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,7 +628,7 @@ MonoBehaviour:
   m_ShadowVariant: 0
   m_ShadowPrecision: 0
   useOldInspector: 0
-  useVolumetric: 1
+  useVolumetric: 0
   featuresFoldout: 1
   m_AreaLightEmissiveMeshShadowCastingMode: 0
   m_AreaLightEmissiveMeshMotionVectorGenerationMode: 0

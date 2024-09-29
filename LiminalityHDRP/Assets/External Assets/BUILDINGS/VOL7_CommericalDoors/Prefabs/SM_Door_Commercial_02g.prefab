@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1030991136}
   - component: {fileID: 1030991137}
   - component: {fileID: 167020350814310476}
-  - component: {fileID: 6723454773443112439}
-  - component: {fileID: 3248997293577658122}
+  - component: {fileID: 5546706773285968566}
+  - component: {fileID: 8579508357564425867}
   m_Layer: 3
   m_Name: SM_Door_Commercial_02g
   m_TagString: Untagged
@@ -90,7 +90,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300008, guid: abc00000000016020352253881597507, type: 3}
 --- !u!114 &167020350814310476
@@ -105,11 +105,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8c6659e69718f4a90dab9a090fdf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  audioSource: {fileID: 6723454773443112439}
+  animator: {fileID: 5546706773285968566}
+  audioSource: {fileID: 8579508357564425867}
   doorOpen: {fileID: 8300000, guid: 99b31e378f7a10843b44cab5a81508c9, type: 3}
   doorClose: {fileID: 8300000, guid: 9f792195588dce640926230dc8e397cf, type: 3}
---- !u!82 &6723454773443112439
+--- !u!95 &5546706773285968566
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030991134}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: abc00000000016020352253881597507, type: 3}
+  m_Controller: {fileID: 9100000, guid: 375a0b3f977d7b14a9f61a0de84d8235, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &8579508357564425867
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,27 +226,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &3248997293577658122
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030991134}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: abc00000000016020352253881597507, type: 3}
-  m_Controller: {fileID: 9100000, guid: 375a0b3f977d7b14a9f61a0de84d8235, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1030991138
 GameObject:
   m_ObjectHideFlags: 0

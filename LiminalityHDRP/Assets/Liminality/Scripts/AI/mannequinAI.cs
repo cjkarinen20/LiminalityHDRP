@@ -41,6 +41,14 @@ public class mannequinAI : MonoBehaviour
         {
             mannequin.speed = 0;
             aiAnimator.speed = 0;
+            if (distance <= catchDistance)
+            {
+                mannequin.speed = 0;
+                aiAnimator.speed = 0;
+            }
+            
+
+
             mannequin.SetDestination(transform.position);
         }
 
