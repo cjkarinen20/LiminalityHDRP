@@ -33,6 +33,7 @@ public class LevelManager : MonoBehaviour
 
         var level = SceneManager.LoadSceneAsync(levelName);
         //level.allowSceneActivation = false;
+        level.allowSceneActivation = true;
 
         loadingScreen.SetActive(true);
 
@@ -45,7 +46,6 @@ public class LevelManager : MonoBehaviour
 
         await Task.Delay(1000);
 
-        level.allowSceneActivation = true;
         if (level.isDone)
         {
             loadingScreen.SetActive(false);
@@ -59,6 +59,7 @@ public class LevelManager : MonoBehaviour
 
         var level = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         //level.allowSceneActivation = false;
+        level.allowSceneActivation = true;
 
         loadingScreen.SetActive(true);
 
@@ -71,7 +72,6 @@ public class LevelManager : MonoBehaviour
 
         await Task.Delay(1000);
 
-        level.allowSceneActivation = true;
         if (level.isDone)
         {
             loadingScreen.SetActive(false);
