@@ -127,7 +127,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142351439605063418}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -2056,7 +2056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2618103078096152969
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3106,7 +3106,7 @@ GameObject:
   - component: {fileID: 696827231246111420}
   m_Layer: 0
   m_Name: WoodMan
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3226,7 +3226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f5a0659af33144d97dc350bb09b914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathCanvas: {fileID: 0}
+  deathStatic: {fileID: 4263360758882849601}
   aiAnimator: {fileID: 7738582161512460282}
   playerController: {fileID: 0}
   mannequin: {fileID: 8640377722229128591}
@@ -3276,7 +3276,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 69a35df179ef5f2478298e2ffd632444, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3284,7 +3284,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3.6830444
+  MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -3411,7 +3411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1989880893444185731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3443,7 +3443,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 8013890815640471342}
-  m_PlaneDistance: 0.11
+  m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

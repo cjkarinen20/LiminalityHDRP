@@ -316,7 +316,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -6119058457041106433, guid: 69a35df179ef5f2478298e2ffd632444, type: 2}
   m_audioClip: {fileID: 8300000, guid: c840b596e90b10241a610b1efc3b7a6e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 1767577337701576101}
   - component: {fileID: 4068575434242562147}
   - component: {fileID: 8730047064632057321}
-  - component: {fileID: 8506567575508663726}
+  - component: {fileID: 1559801598953455585}
   m_Layer: 6
   m_Name: PlayerController
   m_TagString: Player
@@ -517,7 +517,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.8
+  m_Height: 1.7
   m_Radius: 0.35
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -570,15 +570,13 @@ MonoBehaviour:
   minFallHeight: 5
   maxStamina: 100
   staminaUseMultiplier: 5
-  staminaAudioSource: {fileID: 0}
-  staminaOutSound: {fileID: 0}
   timeBeforeStaminaRegenStarts: 5
-  staminaIncreaseIncrement: 1.8
+  staminaIncreaseIncrement: 2
   staminaTimeIncrement: 0.1
-  jumpForce: 5.5
+  jumpForce: 4.5
   gravity: 30
   crouchHeight: 0.5
-  standingHeight: 2
+  standingHeight: 1.7
   timeToCrouch: 0.25
   crouchingCenter: {x: 0, y: 0.5, z: 0}
   standingCenter: {x: 0, y: 0, z: 0}
@@ -739,7 +737,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 45
+  Priority: 128
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 1.000001
@@ -817,7 +815,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!54 &8506567575508663726
+--- !u!54 &1559801598953455585
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -839,7 +837,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

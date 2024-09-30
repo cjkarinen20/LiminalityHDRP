@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class mannequinAI : MonoBehaviour
 {
-    public Canvas deathCanvas;
+    public GameObject deathStatic;
     public Animator aiAnimator;
     public NewFPSController playerController;
     public NavMeshAgent mannequin;
@@ -41,6 +41,13 @@ public class mannequinAI : MonoBehaviour
         {
             mannequin.speed = 0;
             aiAnimator.speed = 0;
+            if (distance <= catchDistance)
+            {
+                mannequin.speed = 0;
+                aiAnimator.speed = 0;
+            }
+            
+
 
             mannequin.SetDestination(transform.position);
         }
@@ -60,7 +67,7 @@ public class mannequinAI : MonoBehaviour
                 playerCam.enabled = false;
                 killCam.enabled = true;
                 aiAnimator.speed = 0;
-                deathCanvas.enabled = true;
+                deathStatic.SetActive(true);
                 StartCoroutine("deathRoutine");
             }
 
