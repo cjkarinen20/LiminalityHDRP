@@ -13,7 +13,6 @@ public class enemyAI : MonoBehaviour
     public Animator aiAnim;
     public Transform player;
     public NewFPSController playerController;
-    [Header("AI Settings")]
     public float walkSpeed, chaseSpeed, minIdleTime, maxIdleTime, idleTime, detectionDistance, catchDistance, searchDistance, minChaseTime, maxChaseTime, minSearchTime, maxSearchTime, jumpscareTime;
     public bool walking, chasing, searching;
 
