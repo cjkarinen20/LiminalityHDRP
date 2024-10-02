@@ -133,8 +133,8 @@ Material:
     m_Colors:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _RippleSpeed: {r: 0.001, g: 0.001, b: 0, a: 0}
-    - _RippleTiling: {r: 0.01, g: 0.01, b: 0, a: 0}
-    - _Smoothing: {r: 0.09, g: 0.09, b: 0, a: 0}
+    - _RippleSpeed: {r: 0.01, g: 0.01, b: 0, a: 0}
+    - _RippleTiling: {r: 0.03, g: 0.03, b: 0, a: 0}
+    - _Smoothing: {r: 0.03, g: 0.03, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
