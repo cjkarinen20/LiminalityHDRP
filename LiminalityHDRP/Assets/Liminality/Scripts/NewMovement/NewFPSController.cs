@@ -5,13 +5,22 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class NewFPSController : MonoBehaviour
 {
+    //[SerializeField] private GameObject gameOverScreen;
+
+    public enum PlayerMovementState {Idle, Walking, Running}
+
+    public PlayerMovementState playerMovementState { private set; get; }
+
+    private enum AudioType { Hurt, Jump, Stamina }
+
     public bool canMove = true;
     private bool isSprinting => sprintEnabled && Input.GetKey(sprintKey) && Input.GetKey(KeyCode.W) && !isCrouching;
-    private bool shouldJump => Input.GetKeyDown(jumptKey) && characterController.isGrounded;
-    private bool shouldCrouch => Input.GetKeyDown(crouchKey) || Input.GetKeyUp(crouchKey) && !ongoingCrouchAnimation && characterController.isGrounded;
+    private bool shouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded && !isCrouching;
+    private bool isHoldingCrouch => Input.GetKey(crouchKey);
 
     [Header("Functional Options")]
     [SerializeField] public bool mouseLookEnabled = true;
@@ -24,23 +33,26 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private bool interactionEnabled = true;
     [SerializeField] private bool footstepsEnabled = true;
     [SerializeField] private bool staminaEnabled = true;
-    [SerializeField] private bool fallDamageEnabled = true;
+    //[SerializeField] private bool fallDamageEnabled = true;
 
-    [Header("Controls")]
+    [Header("Key Bindings")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
-    [SerializeField] private KeyCode jumptKey = KeyCode.Space;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
     [SerializeField] private KeyCode zoomKey = KeyCode.Mouse1;
     [SerializeField] private KeyCode interactKey = KeyCode.Mouse0;
 
     [Header("Movement Parameters")]
+    [SerializeField] private float acceleraction = 9;
     [SerializeField] public float walkSpeed = 4.5f;
     [SerializeField] private float sprintSpeed = 6.2f;
     [SerializeField] private float crouchSpeed = 1.5f;
-    [SerializeField] private float slopeSpeed = 8f; 
+    [SerializeField] private float slopeSpeed = 8f;
+    [SerializeField] private float rotSpeed = 50f;
 
 
     [Header("Look Parameters")]
+    [SerializeField] private Animator cameraAnim;
     [SerializeField, Range(1, 10)] private float lookSpeedX = 2.0f;
     [SerializeField, Range(1, 10)] private float lookSpeedY = 2.0f;
     [SerializeField, Range(1, 100)] private float upperLookLimit = 80.0f;
@@ -57,7 +69,9 @@ public class NewFPSController : MonoBehaviour
     public static Action<float> OnDamage;
     public static Action<float> OnHeal;
     public Image bloodOverlay;
+    private Color bloodOverlayDefaultColor;
 
+    /*
     [Header("Fall Damage Parameters")]
     [SerializeField] private float fallDamage = 50;
     [SerializeField] private float minFallHeight = 5f;
@@ -66,6 +80,7 @@ public class NewFPSController : MonoBehaviour
     private bool wasGrounded;
     private bool wasFalling;
     private float beginFallHeight;
+    */
 
     [Header("Stamina Parameters")]
     [SerializeField] private float maxStamina = 100;
@@ -92,6 +107,8 @@ public class NewFPSController : MonoBehaviour
     private bool isCrouching;
     private bool ongoingCrouchAnimation;
 
+
+    /*
     [Header("Headbob Parameters")]
     [SerializeField] private float walkbobSpeed = 14f;
     [SerializeField] private float walkbobAmount = 0.5f;
@@ -100,7 +117,7 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private float crouchbobSpeed = 8f;
     [SerializeField] private float crouchbobAmount = 0.025f;
     private float defaultYPos = 0;
-    private float Timer;
+    private float Timer;*/
 
     [Header("Zoom Parameters")]
     [SerializeField] private float timeToZoom = 0.3f;
@@ -113,20 +130,33 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private float sprintStepSpeed = 0.3f;
     [SerializeField] private float crouchStepMultiplier = 1.5f;
     [SerializeField] private float sprintStepMultiplier = 0.3f;
+
+    [Header("Player Sounds")]
+    [SerializeField] private AudioSource voiceSounds;
+    [SerializeField] private AudioClip[] hurt, jump, stamina;
+
+    [Header("Footstep Sounds")]
     [SerializeField] private AudioSource footstepAudioSource = default;
-    [SerializeField] private AudioClip[] grassSounds = default;
-    [SerializeField] private AudioClip[] grassRunSounds = default;
+    [SerializeField] private AudioClip[] stoneSounds = default;
+    [SerializeField] private AudioClip[] stoneScuffSounds = default;
+    [SerializeField] private AudioClip[] woodSounds = default;
+    [SerializeField] private AudioClip[] woodScuffSounds = default;
     [SerializeField] private AudioClip[] dirtSounds = default;
-    [SerializeField] private AudioClip[] dirtRunSounds = default;
+    [SerializeField] private AudioClip[] dirtScuffSounds = default;
     [SerializeField] private AudioClip[] tileSounds = default;
-    [SerializeField] private AudioClip[] tileRunSounds = default;
+    [SerializeField] private AudioClip[] tileScuffSounds = default;
     [SerializeField] private AudioClip[] waterSounds = default;
-    [SerializeField] private AudioClip[] waterRunSounds = default;
+    [SerializeField] private AudioClip[] waterScuffSounds = default;
 
 
 
     private float footstepTimer = 0;
     private float GetCurrentOffset => isCrouching ? baseStepSpeed * crouchStepMultiplier : isSprinting ? baseStepSpeed = sprintStepMultiplier : baseStepSpeed;
+
+    private float origWalkSpeed, origSprintSpeed, origCrouchSpeed;
+    private float currentSpeed = 0, currentBobSpeed = 0;
+    private bool isCurrentlyMoving = false;
+    private bool isGrounded = false;
 
 
     // SLIDING PARAMETERS
@@ -153,7 +183,7 @@ public class NewFPSController : MonoBehaviour
     [SerializeField] private LayerMask interactionLayer = default;
     private Interactable currentInteractable;
 
-    private Camera playerCamera;
+    public Camera playerCamera { get; private set; }
     private CharacterController characterController;
 
     private Vector3 moveDirection;
@@ -174,16 +204,18 @@ public class NewFPSController : MonoBehaviour
 
     void Awake()
     {
+        origWalkSpeed = walkSpeed;
+        origSprintSpeed = sprintSpeed;
+        origCrouchSpeed = crouchSpeed;
         instance = this;
-        rigidBody = GetComponent<Rigidbody>();
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponentInChildren<CharacterController>();
-        defaultYPos = playerCamera.transform.localPosition.y;
         defaultFOV = playerCamera.fieldOfView;
         currentHealth = maxHealth;
         currentStamina = maxStamina;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        bloodOverlayDefaultColor = bloodOverlay.color;
     }
 
     void Update()
@@ -191,6 +223,10 @@ public class NewFPSController : MonoBehaviour
         //Specifies when to update movement
         if (canMove) 
         {
+            if (walkSpeed < origWalkSpeed) walkSpeed += .1f * Time.deltaTime;
+            if (sprintSpeed < origSprintSpeed) sprintSpeed += .1f * Time.deltaTime;
+            if (crouchSpeed < origCrouchSpeed) crouchSpeed += .1f * Time.deltaTime;
+
             HandleMovementInput();
             
             if(mouseLookEnabled)
@@ -199,8 +235,8 @@ public class NewFPSController : MonoBehaviour
                 HandleJump();
             if (crouchEnabled)
                 HandleCrouch();
-            if (headBobEnabled)
-                HandleHeadBob();
+            /*if (headBobEnabled)
+                HandleHeadBob();*/
             if (zoomEnabled)
                 HandleZoom();
             if (footstepsEnabled)
@@ -212,20 +248,112 @@ public class NewFPSController : MonoBehaviour
             }
             if (staminaEnabled)
                 HandleStamina();
+            /*
             if (fallDamageEnabled)
                 FallDamage(fallDamage);
+            */
 
             DamageOverlay();
 
-            Debug.Log("Health: " + currentHealth);
-            Debug.Log("Stamina: " + currentStamina);
-
+            //Debug.Log("Health: " + currentHealth);
+            //Debug.Log("Stamina: " + currentStamina);
+            Debug.Log("isGrounded:" + isGrounded);
             ApplyFinalMovement();
+        }
+    }
+
+
+    public void SlowPlayer()
+    {
+
+    }
+
+    //Used to force the player view toward a specific area for cutscenes
+    public void LookAt(GameObject target)
+    {
+        StartCoroutine(LookAtTarget(target.transform.position));
+    }
+    IEnumerator LookAtTarget(Vector3 target)
+    {
+        canMove = false;
+
+        float time = 2;
+        float elapsed = 0;
+
+        while (elapsed < time)
+        {
+            elapsed += Time.deltaTime;
+
+            Vector3 relativePos = target - playerCamera.transform.position;
+            Quaternion rotation = Quaternion.LookRotation(relativePos.normalized, Vector3.up);
+            Quaternion playerRot = rotation;
+            Quaternion cameraRot = rotation;
+            playerRot.x = 0;
+            playerRot.z = 0;
+
+            cameraRot.z = 0;
+            cameraRot.y = 0;
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, playerRot, Time.deltaTime * 5);
+            playerCamera.transform.localRotation = Quaternion.Lerp(playerCamera.transform.localRotation, cameraRot, Time.deltaTime * 5);
+
+
+            yield return null;
         }
     }
     private void HandleMovementInput()
     {
-        currentInput = new Vector2((isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"), (isSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Horizontal"));
+        if (isCrouching)
+        {
+            cameraAnim.speed = .5f;
+        }
+        else
+        {
+            cameraAnim.speed = 1;
+        }
+        Vector2 desiredInput = new Vector2(currentSpeed * Input.GetAxis("Vertical"), currentSpeed * Input.GetAxis("Horizontal"));
+
+        if (desiredInput.magnitude <= 0 && isCurrentlyMoving && characterController.isGrounded)
+        {
+            isCurrentlyMoving = false;
+            PlayScuffSound();
+        }
+        else if (desiredInput.magnitude > 0 && !isCurrentlyMoving)
+        {
+            isCurrentlyMoving = true;
+        }
+
+        if (desiredInput.magnitude > 0)
+        {
+            if (isSprinting)
+            {
+                cameraAnim.ResetTrigger("Walk");
+                cameraAnim.ResetTrigger("Idle");
+                cameraAnim.SetTrigger("Run");
+                playerMovementState = PlayerMovementState.Running;
+            }
+            else
+            {
+                cameraAnim.ResetTrigger("Idle");
+                cameraAnim.ResetTrigger("Run");
+                cameraAnim.SetTrigger("Walk");
+                playerMovementState = PlayerMovementState.Walking;
+            }
+        }
+        else
+        {
+            cameraAnim.ResetTrigger("Walk");
+            cameraAnim.ResetTrigger("Run");
+            cameraAnim.SetTrigger("Idle");
+            playerMovementState = PlayerMovementState.Idle;
+        }
+
+        if (characterController.isGrounded)
+        {
+            currentSpeed = Mathf.Lerp(currentSpeed, isCrouching ? crouchSpeed : isSprinting ? sprintSpeed : walkSpeed, Time.deltaTime * acceleraction);
+        }
+
+        currentInput = Vector2.Lerp(currentInput, desiredInput, Time.deltaTime * desiredInput.magnitude > 0 ? 3 : 8);
 
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward) * currentInput.x) + (transform.TransformDirection(Vector3.right) * currentInput.y);
@@ -240,21 +368,40 @@ public class NewFPSController : MonoBehaviour
     }
     private void HandleJump()
     {
-        if (shouldJump)
+        if (shouldJump && sprintEnabled)
+        {
+            PlayVoiceSound(AudioType.Jump);
             moveDirection.y = jumpForce;
+            cameraAnim.SetTrigger("Jump");
+        }
     }
-    private void CheckGround()
+    private void HandleGrounded()
+    {
+        if (!isGrounded && characterController.isGrounded)
+        {
+            cameraAnim.SetTrigger("Land");
+            PlayScuffSound();
+        }
+
+        isGrounded = characterController.isGrounded;
+    }
+    /*private void CheckGround()
     {
         _grounded = Physics.Raycast(characterController.transform.position + Vector3.up, -Vector3.up, 1.01f);
-    }
-    private bool isFalling { get { return (!_grounded && rigidBody.velocity.y < 0); } }
+    }*/
+    //private bool isFalling { get { return (!_grounded && rigidBody.velocity.y < 0); } }
 
     private void HandleCrouch()
     {
-        if (shouldCrouch)
-            StartCoroutine(CrouchStand());
+        if (characterController.isGrounded && !ongoingCrouchAnimation)
+        {
+            if (!isCrouching && isHoldingCrouch || isCrouching && !isHoldingCrouch)
+            {
+                StartCoroutine(CrouchStand());
+            }
+        }
     }
-    private void HandleHeadBob()
+   /* private void HandleHeadBob()
     {
         if (!characterController.isGrounded) return;
 
@@ -272,7 +419,7 @@ public class NewFPSController : MonoBehaviour
                 playerCamera.transform.localPosition.z);
         }
 
-    }
+    }*/
     private void HandleStamina()
     {
         if (isSprinting && currentInput != Vector2.zero)
@@ -291,7 +438,7 @@ public class NewFPSController : MonoBehaviour
 
             if (currentStamina <= 0)
             {
-                staminaAudioSource.PlayOneShot(staminaOutSound);
+                PlayVoiceSound(AudioType.Stamina);
                 sprintEnabled = false;
 
             }
@@ -330,12 +477,14 @@ public class NewFPSController : MonoBehaviour
     {
         if (!characterController.isGrounded)
             moveDirection.y -= gravity * Time.deltaTime;
+        else
+            moveDirection.y = -gravity * 2;
 
         if (slopeSlidingEnabled && isSliding)
             moveDirection += new Vector3(hitPointNormal.x, -hitPointNormal.z) * slopeSpeed;
 
 
-            characterController.Move(moveDirection * Time.deltaTime);
+        characterController.Move(moveDirection * Time.deltaTime);
     }
     private void HandleFootsteps()
     {
@@ -344,58 +493,75 @@ public class NewFPSController : MonoBehaviour
 
         footstepTimer -= Time.deltaTime;
 
-            if (footstepTimer <= 0)
-            {
-                footstepAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
-                if (Physics.Raycast(characterController.transform.position, Vector3.down, out RaycastHit hit, 3))
-                {
-                    switch (hit.collider.tag)
-                    {
-                        case "Grass":
-                            if (isSprinting)
-                                footstepAudioSource.PlayOneShot(grassRunSounds[UnityEngine.Random.Range(0, grassRunSounds.Length - 1)]);
-                            else
-                            {
-                                footstepAudioSource.PlayOneShot(grassSounds[UnityEngine.Random.Range(0, grassSounds.Length - 1)]);
-                            }
-                            break;
-                        case "Dirt":
-                            if (isSprinting)
-                                footstepAudioSource.PlayOneShot(dirtRunSounds[UnityEngine.Random.Range(0, dirtRunSounds.Length - 1)]);
-                            else
-                            {
-                                footstepAudioSource.PlayOneShot(dirtSounds[UnityEngine.Random.Range(0, dirtSounds.Length - 1)]);
-                            }
-                            break;
-                        case "Tile":
-                            if (isSprinting)
-                                footstepAudioSource.PlayOneShot(tileRunSounds[UnityEngine.Random.Range(0, tileRunSounds.Length - 1)]);
-                            else
-                            {
-                                footstepAudioSource.PlayOneShot(tileSounds[UnityEngine.Random.Range(0, tileSounds.Length - 1)]);
-                            }
-                            break;
-                        case "Water":
-                            if (isSprinting)
-                                footstepAudioSource.PlayOneShot(waterRunSounds[UnityEngine.Random.Range(0, waterRunSounds.Length - 1)]);
-                            else
-                            {
-                                footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length - 1)]);
-                            }
-                            break;
-                        default:
-                        if (isSprinting)
-                            footstepTimer = sprintStepSpeed;
-                        else
-                            footstepTimer = baseStepSpeed;
-                        break;
-                    }
-                }
+        if (footstepTimer <= 0)
+        {
+            PlayFootStepSound();
             if (isSprinting)
                 footstepTimer = sprintStepSpeed;
             else
                 footstepTimer = baseStepSpeed;
+        }
+    }
+    private void PlayFootStepSound()
+    {
+        if (!canMove) return;
+        footstepAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+        if (Physics.Raycast(characterController.transform.position, Vector3.down, out RaycastHit hit, 3))
+        {
+            switch (hit.collider.tag)
+            {
+                case "Wood":
+                    footstepAudioSource.PlayOneShot(woodSounds[UnityEngine.Random.Range(0, woodSounds.Length)]);
+                    break;
+                case "Stone":
+                    footstepAudioSource.PlayOneShot(stoneSounds[UnityEngine.Random.Range(0, stoneSounds.Length)]);
+                    break;
+                case "Dirt":
+                    footstepAudioSource.PlayOneShot(dirtSounds[UnityEngine.Random.Range(0, dirtSounds.Length)]);
+                    break;
+                case "Tile":
+                    footstepAudioSource.PlayOneShot(tileSounds[UnityEngine.Random.Range(0, tileSounds.Length)]);
+                    break;
+                case "Water":
+                    footstepAudioSource.PlayOneShot(waterSounds[UnityEngine.Random.Range(0, waterSounds.Length)]);
+                    break;
+                default:
+                    if (isSprinting)
+                        footstepTimer = sprintStepSpeed;
+                    else
+                        footstepTimer = baseStepSpeed;
+                    break;
             }
+        }
+    }
+    private void PlayScuffSound()
+    {
+        if (!canMove) return;
+        footstepAudioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+        if (Physics.Raycast(characterController.transform.position, Vector3.down, out RaycastHit hit, 3))
+        {
+            switch (hit.collider.tag)
+            {
+                case "Wood":
+                    footstepAudioSource.PlayOneShot(woodScuffSounds[UnityEngine.Random.Range(0, woodScuffSounds.Length)]);
+                    break;
+                case "Stone":
+                    footstepAudioSource.PlayOneShot(stoneScuffSounds[UnityEngine.Random.Range(0, stoneScuffSounds.Length)]);
+                    break;
+                case "Dirt":
+                    footstepAudioSource.PlayOneShot(dirtScuffSounds[UnityEngine.Random.Range(0, dirtScuffSounds.Length)]);
+                    break;
+                case "Tile":
+                    footstepAudioSource.PlayOneShot(tileScuffSounds[UnityEngine.Random.Range(0, tileScuffSounds.Length)]);
+                    break;
+                case "Water":
+                    footstepAudioSource.PlayOneShot(waterScuffSounds[UnityEngine.Random.Range(0, waterScuffSounds.Length)]);
+                    break;
+                default:
+
+                    break;
+            }
+        }
     }
     private void DamageOverlay()
     {
@@ -406,6 +572,7 @@ public class NewFPSController : MonoBehaviour
     }
     public void ApplyDamage(float damage)
     {
+        PlayVoiceSound(AudioType.Hurt);
         currentHealth -= damage;
         OnDamage?.Invoke(currentHealth);
 
@@ -416,6 +583,7 @@ public class NewFPSController : MonoBehaviour
 
         regeneratingHealth = StartCoroutine(RegenerateHealth());
     }
+    /*
     public void FallDamage(float fallDamage)
     {
         CheckGround();
@@ -434,8 +602,8 @@ public class NewFPSController : MonoBehaviour
         }
         wasGrounded = _grounded;
         wasFalling = isFalling;
-
     }
+    */
     public void KillPlayer()
     {
         currentHealth = 0;
@@ -478,9 +646,8 @@ public class NewFPSController : MonoBehaviour
     }
     private IEnumerator CrouchStand()
     {
-        if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
+        if (isCrouching && Physics.SphereCast(playerCamera.transform.position, characterController.radius + .15f, Vector3.up, out RaycastHit hit, 1f))
             yield break;
-            
 
         ongoingCrouchAnimation = true;
 
@@ -502,6 +669,8 @@ public class NewFPSController : MonoBehaviour
 
         characterController.height = targetHeight;
         characterController.center = targetCenter;
+
+        yield return new WaitForSeconds(.1f);// Wait for an additional delay to prevent some clipping bugs
 
         ongoingCrouchAnimation = false;
     }
@@ -556,5 +725,27 @@ public class NewFPSController : MonoBehaviour
             yield return timeToWait;
         }
         regeneratingStamina = null;
+    }
+    private void PlayVoiceSound(AudioType typeOfAudio)
+    {
+        if (!canMove) return;
+        switch (typeOfAudio)
+        {
+            case AudioType.Hurt:
+                voiceSounds.clip = hurt[UnityEngine.Random.Range(0, hurt.Length)];
+                voiceSounds.Play();
+                break;
+            case AudioType.Jump:
+                voiceSounds.clip = jump[UnityEngine.Random.Range(0, jump.Length)];
+                voiceSounds.Play();
+                break;
+            case AudioType.Stamina:
+                voiceSounds.clip = stamina[UnityEngine.Random.Range(0, stamina.Length)];
+                voiceSounds.Play();
+                break;
+            default:
+
+                break;
+        }
     }
 }

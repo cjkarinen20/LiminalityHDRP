@@ -29,14 +29,14 @@ Transform:
   m_GameObject: {fileID: 341713054131717531}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.673, z: 0.199}
+  m_LocalPosition: {x: -0.005999565, y: 0.099999905, z: -0.08400011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5891196016057834383}
   - {fileID: 5120335813437765427}
   - {fileID: 6253653700482707555}
-  m_Father: {fileID: 7196414042994286014}
+  m_Father: {fileID: 5714147335706266647}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &2993170354173782711
 Camera:
@@ -56,7 +56,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 20.59
   m_FocusDistance: 10
-  m_FocalLength: 20.78461
+  m_FocalLength: 5.878472
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -71,7 +71,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 20.42808
+  field of view: 65
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -474,7 +474,6 @@ GameObject:
   - component: {fileID: 1767577337701576101}
   - component: {fileID: 4068575434242562147}
   - component: {fileID: 8730047064632057321}
-  - component: {fileID: 1559801598953455585}
   m_Layer: 6
   m_Name: PlayerController
   m_TagString: Player
@@ -495,7 +494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 950622288140057696}
+  - {fileID: 5714147335706266647}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!143 &1767577337701576101
@@ -547,16 +546,18 @@ MonoBehaviour:
   interactionEnabled: 1
   footstepsEnabled: 1
   staminaEnabled: 1
-  fallDamageEnabled: 1
   sprintKey: 304
   jumptKey: 32
   crouchKey: 306
   zoomKey: 325
   interactKey: 101
+  acceleraction: 9
   walkSpeed: 2.5
   sprintSpeed: 4.5
   crouchSpeed: 1.5
   slopeSpeed: 8
+  rotSpeed: 50
+  cameraAnim: {fileID: 5401334908053030546}
   lookSpeedX: 2
   lookSpeedY: 2
   upperLookLimit: 80
@@ -566,10 +567,10 @@ MonoBehaviour:
   healthIncreaseIncrement: 1
   healthTimeIncrement: 0.1
   bloodOverlay: {fileID: 0}
-  fallDamage: 50
-  minFallHeight: 5
   maxStamina: 100
   staminaUseMultiplier: 5
+  staminaAudioSource: {fileID: 0}
+  staminaOutSound: {fileID: 0}
   timeBeforeStaminaRegenStarts: 5
   staminaIncreaseIncrement: 2
   staminaTimeIncrement: 0.1
@@ -580,51 +581,21 @@ MonoBehaviour:
   timeToCrouch: 0.25
   crouchingCenter: {x: 0, y: 0.5, z: 0}
   standingCenter: {x: 0, y: 0, z: 0}
-  walkbobSpeed: 0.035
-  walkbobAmount: 0.045
-  sprintbobSpeed: 0.11
-  sprintbobAmount: 0.11
-  crouchbobSpeed: 0.055
-  crouchbobAmount: 0.025
   timeToZoom: 0.3
   zoomFOV: 40
   baseStepSpeed: 0.7
   sprintStepSpeed: 0.3
   crouchStepMultiplier: 1.5
   sprintStepMultiplier: 0.2
+  voiceSounds: {fileID: 0}
+  hurt: []
+  jump: []
+  stamina: []
   footstepAudioSource: {fileID: 8730047064632057321}
-  grassSounds:
-  - {fileID: 8300000, guid: cf0f3950f5c009246b186e56aec14040, type: 3}
-  - {fileID: 8300000, guid: 159850501b6ce4b4ca59deb7e44d9351, type: 3}
-  - {fileID: 8300000, guid: 10bc8159cdc097e4d81d6bb7a3353ef9, type: 3}
-  - {fileID: 8300000, guid: 5c218de1c290d8f4a865efc21ded186b, type: 3}
-  - {fileID: 8300000, guid: 8f682bb7cd5bb544e9748e6f611b5aa7, type: 3}
-  - {fileID: 8300000, guid: b434862b94d6a8f4b96a9264bbad6b19, type: 3}
-  - {fileID: 8300000, guid: 7085033907b277f40b8e4fab0a5a3e2b, type: 3}
-  - {fileID: 8300000, guid: ed692d105244f64478c2f85ad822fdb1, type: 3}
-  - {fileID: 8300000, guid: 343512d7e7f4a0641bbdf4d1057cd246, type: 3}
-  - {fileID: 8300000, guid: b3c4363f7acc010448e13a48e2f0a335, type: 3}
-  grassRunSounds:
-  - {fileID: 8300000, guid: 2cd08369305db5947be3afd7d277e90d, type: 3}
-  - {fileID: 8300000, guid: 90bc39a6542bb8b4997da249ca8deff0, type: 3}
-  - {fileID: 8300000, guid: e1aba36341c9d5b4b9827293b1772cb7, type: 3}
-  - {fileID: 8300000, guid: a4e7a759b25cf91439eb507226c7d5bd, type: 3}
-  - {fileID: 8300000, guid: a5cd9466db63f3143ae3712e6750d7bf, type: 3}
-  - {fileID: 8300000, guid: e86f982238d96e644a0af91c2bc97555, type: 3}
-  - {fileID: 8300000, guid: 004bdd4a118caa046b61e24adf0615f1, type: 3}
-  - {fileID: 8300000, guid: 0ad25ce030833c640ad6e9bcda906cf3, type: 3}
-  - {fileID: 8300000, guid: 6feeddc1f8f84eb4fa9f7134ba63b8e4, type: 3}
-  - {fileID: 8300000, guid: d68fdc7adc29ca547a33bc5a532b5c84, type: 3}
-  - {fileID: 8300000, guid: 48b802048c58cae4eb2368885c531db2, type: 3}
-  - {fileID: 8300000, guid: 8e15083dabacf6943a6758acc358f241, type: 3}
-  - {fileID: 8300000, guid: b96493840cdf1a542957195b142586db, type: 3}
-  - {fileID: 8300000, guid: e633b00cda941d54eadb060ead1334a7, type: 3}
-  - {fileID: 8300000, guid: fd8ecf825b5780d48a04d228916c5286, type: 3}
-  - {fileID: 8300000, guid: 077c74cfc97cf4343938fd512f4b35bf, type: 3}
-  - {fileID: 8300000, guid: 7e8f0f4310ee8e84496198cf4c3971ca, type: 3}
-  - {fileID: 8300000, guid: aed825afe50e9024ea004ac5ebc25337, type: 3}
-  - {fileID: 8300000, guid: 9d696301271ad3d4a977ce1f61577c7a, type: 3}
-  - {fileID: 8300000, guid: 4b7b299ae59dc08428c147ff75bb7cad, type: 3}
+  stoneSounds: []
+  stoneScuffSounds: []
+  woodSounds: []
+  woodScuffSounds: []
   dirtSounds:
   - {fileID: 8300000, guid: b3803750148fc0d47b0c33c0ed5d32e0, type: 3}
   - {fileID: 8300000, guid: c2a53ffcb5f9eab44824b4d732ee6863, type: 3}
@@ -648,7 +619,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 902c8d9ff138e1643b0c285545c7c42d, type: 3}
   - {fileID: 8300000, guid: cc21cffe6e86bf641a27b6f1845e5cd3, type: 3}
   - {fileID: 8300000, guid: b4650186a975bac448e0f3b4f00afcfe, type: 3}
-  dirtRunSounds: []
+  dirtScuffSounds: []
   tileSounds:
   - {fileID: 8300000, guid: 2389f804f3d523c49b59b0abc9d47fbb, type: 3}
   - {fileID: 8300000, guid: 5b295a2de45f0954aab4a11774868579, type: 3}
@@ -672,28 +643,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5bb2568ec0bba5d4e970f812c526cc6e, type: 3}
   - {fileID: 8300000, guid: f1ab5d1ce104cc74183ee86628d92eed, type: 3}
   - {fileID: 8300000, guid: 19e592947614eb04b8388f69a1031691, type: 3}
-  tileRunSounds:
-  - {fileID: 8300000, guid: 0df53c4f5c5cb784f9e29efa12749920, type: 3}
-  - {fileID: 8300000, guid: 8ed137b387c32504ab408f84ae08c07e, type: 3}
-  - {fileID: 8300000, guid: c73661c07b818e14384535c342e57437, type: 3}
-  - {fileID: 8300000, guid: 4ade63e4e3d240343b31057e79be9a67, type: 3}
-  - {fileID: 8300000, guid: 361d2b75753890a47a314ea20bc0eb72, type: 3}
-  - {fileID: 8300000, guid: 7ed3ab2d53d9c034ea11b287851b050e, type: 3}
-  - {fileID: 8300000, guid: ebb2389ce96c6684c9487a370afccfff, type: 3}
-  - {fileID: 8300000, guid: ede8a237f8518b748b24cba27fb39759, type: 3}
-  - {fileID: 8300000, guid: f4fb7e9c36a3a1f47aab6a7ebe8bc7b7, type: 3}
-  - {fileID: 8300000, guid: 199a6618df4531149bbe4bbc57c30adc, type: 3}
-  - {fileID: 8300000, guid: 9b9314f3c82644f408087d9ebc5dfdd9, type: 3}
-  - {fileID: 8300000, guid: 80f92d486bdabeb4b99bd98121f29419, type: 3}
-  - {fileID: 8300000, guid: 398e1af9b0209f74cb5ea0c97c2d2d54, type: 3}
-  - {fileID: 8300000, guid: 2c5cc7403b0549b48acee4798115fad5, type: 3}
-  - {fileID: 8300000, guid: 5f273f068965f5c4c8e137227898a81c, type: 3}
-  - {fileID: 8300000, guid: 345e8ab0266b9b048b441c5992622424, type: 3}
-  - {fileID: 8300000, guid: 39512b537a14f114daa448f4317a0fe4, type: 3}
-  - {fileID: 8300000, guid: 8f1801b10ac59ad468123b3d0bc909d7, type: 3}
-  - {fileID: 8300000, guid: 1608c5815cf4e38498eefc32395d22f8, type: 3}
-  - {fileID: 8300000, guid: 97ed4f03fc8979c42b76170f25eef2f0, type: 3}
-  - {fileID: 8300000, guid: ca9ec1475cab63a4ab6142559dc4a89e, type: 3}
+  tileScuffSounds: []
   waterSounds:
   - {fileID: 8300000, guid: fcdd658db5813094cb39b5aaa364b135, type: 3}
   - {fileID: 8300000, guid: 83ff8a8714cc74944864ae3d3cfe674f, type: 3}
@@ -704,16 +654,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d56440de3a7aeea4f886e3c0d8baf8b1, type: 3}
   - {fileID: 8300000, guid: 80a2d880df2693b4998f078ab6d64df1, type: 3}
   - {fileID: 8300000, guid: 1d9949e39c6b3164e8cbc92ce5f3a999, type: 3}
-  waterRunSounds:
-  - {fileID: 8300000, guid: 43e53299d61bcea41a648060f72bf5f8, type: 3}
-  - {fileID: 8300000, guid: ea5cb21b9ddcc894490c4193e8c432b0, type: 3}
-  - {fileID: 8300000, guid: e2a5c7305d2529a42973dcd17f5dbf17, type: 3}
-  - {fileID: 8300000, guid: 86b3e4b401873e840aa4f75a786b2e73, type: 3}
-  - {fileID: 8300000, guid: 6c42876d92e551a44b4b15e505a5c5f4, type: 3}
-  - {fileID: 8300000, guid: 7a6b71276687b544087173206c9bf671, type: 3}
-  - {fileID: 8300000, guid: 0ef96b1937d7f1e44b43f295323a40d4, type: 3}
-  - {fileID: 8300000, guid: 26e7858c8c714d040b0ebae49360866d, type: 3}
-  - {fileID: 8300000, guid: ddac53d47d8850f4b9eff15bec60b97f, type: 3}
+  waterScuffSounds: []
   interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
   interactionDistance: 2
   interactionLayer:
@@ -815,33 +756,60 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!54 &1559801598953455585
-Rigidbody:
+--- !u!1 &2370622243245053897
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1556743945381972156}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5714147335706266647}
+  - component: {fileID: 5401334908053030546}
+  m_Layer: 0
+  m_Name: Camera Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5714147335706266647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2370622243245053897}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.005999565, y: 0.5730002, z: 0.11499977}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 950622288140057696}
+  m_Father: {fileID: 7196414042994286014}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5401334908053030546
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2370622243245053897}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4dd80b5e2f74ec44c8d45a06058776ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &5689622967492425489
 PrefabInstance:
   m_ObjectHideFlags: 0

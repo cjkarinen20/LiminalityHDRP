@@ -7,16 +7,24 @@ public class Door : Interactable
     private float dot;
     private bool isOpen = false;
     private bool canInteract = true;
+
+    [Header("Interaction Parameters")]
+    [SerializeField] private bool canPlayerOpen = true;
+    [SerializeField] private bool autoClose = false;
+
+
+    [Header("Animator")]
     public Animator animator;
 
+    [Header("Audio Parameters")]
     public AudioSource audioSource;
     public AudioClip doorOpen;
     public AudioClip doorClose;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        animator = transform.parent.GetComponent<Animator>();
+        audioSource = transform.parent.GetComponent<AudioSource>();
     }
     public override void OnFocus()
     {
@@ -60,6 +68,8 @@ public class Door : Interactable
 
     private IEnumerator AutoClose()
     {
+        if (!autoClose) yield break; 
+
         while (isOpen)
         {
             yield return new WaitForSeconds(3);

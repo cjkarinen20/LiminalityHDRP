@@ -78,7 +78,9 @@ public class flashlight : MonoBehaviour
     }
     private void HandleFlashlight()
     {
-        transform.position = followTarget.transform.position + vectorOffset;
+        //Added this line to rotate the offset vector according to the players facing direction
+        Vector3 rotatedVectorOffset = Vector3.RotateTowards(vectorOffset, followTarget.transform.forward, float.MaxValue, float.MaxValue);
+        transform.position = followTarget.transform.position + rotatedVectorOffset; // Replaced vectorOffset with rotatedVectorOffset variable
         transform.rotation = Quaternion.Slerp(transform.rotation, followTarget.transform.rotation, speed * Time.deltaTime);
         if (Input.GetKeyDown(lightToggle))
         {
