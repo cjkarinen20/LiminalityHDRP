@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2048
     height: 1060.8
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -484,7 +484,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: cafaffff04900000
+      m_ExpandedIDs: e28bffff9a96ffff3c9affffc29bffffcafaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -929,9 +929,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 174.75972, y: -4.76079, z: -6.058884}
+    m_Target: {x: -19.247913, y: -11.92702, z: -122.523476}
     speed: 2
-    m_Value: {x: 174.75972, y: -4.76079, z: -6.058884}
+    m_Value: {x: -19.247913, y: -11.92702, z: -122.523476}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -977,20 +977,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.014781824, y: 0.97829574, z: -0.08341103, w: -0.19199131}
+    m_Target: {x: 0.0045389524, y: -0.9930236, z: 0.06181391, w: 0.10580796}
     speed: 2
-    m_Value: {x: -0.014873733, y: 0.97752756, z: -0.08334744, w: -0.19305904}
+    m_Value: {x: 0.0047587603, y: -0.9920745, z: 0.061762195, w: 0.10932029}
   m_Size:
-    m_Target: 19.343634
+    m_Target: 71.33182
     speed: 2
-    m_Value: 19.343634
+    m_Value: 68.26011
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 0.8458
-    m_SpeedNormalized: 0.42
+    m_Speed: 1.0249
+    m_SpeedNormalized: 0.51
     m_SpeedMin: 0.01
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -1242,7 +1242,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Liminality/Scripts/AI
+    - Assets
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1250,16 +1250,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Liminality/Scripts/AI
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\honey\Documents\GitHub\LiminalityHDRP\LiminalityHDRP
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 438.19995}
-    m_SelectedIDs: 32a50000
-    m_LastClickedID: 42290
-    m_ExpandedIDs: 000000007aa300007ca300007ea3000080a3000018a5000024a5000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 7aa30000
+    m_LastClickedID: 41850
+    m_ExpandedIDs: 000000007aa300007ca300007ea3000080a30000b4a40000b6a40000d2a40000d4a40000d6a40000e4a40000e8a40000eca40000f0a4000066ab00003ead000050ad000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
